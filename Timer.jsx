@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import CategoryInput from './CategoryInputComponent/CategoryInput';
 
 class Timer extends Component {
   
@@ -52,13 +53,11 @@ class Timer extends Component {
               </div>);
           })}
         </div>
-        <div className="Category">
-          <input
-            type="text" name="newCategory" 
-            value={this.state.newCategory} 
-            onChange={this.updateNewCategory}
-            onKeyPress={this.onEnterNewCategory}/>
-        </div>
+        <CategoryInput
+          newCategory={this.state.newCategory}
+          updateNewCategory={this.updateNewCategory}
+          onEnterNewCategory={this.onEnterNewCategory}
+        />
       </div>
     );
   }
