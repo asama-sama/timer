@@ -18,7 +18,11 @@ class Category extends Component {
           <Button color='red' onClick={this.props.stopTimer}>stop</Button>
         </div>
         <div>{this.props.timers.map( (timer, idx) => {
-          return <div key={idx}>{timer.start}</div>;
+          return (
+            <div key={idx}>
+              <span>{timer.start}</span>
+              <span>{timer.end}</span>
+            </div>);
         })}</div>
       </div>
     );

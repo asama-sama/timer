@@ -52,21 +52,10 @@ class Timer extends Component {
     return this.state.categories.find(cat => cat.name === name);
   }
 
-
-  startTimer(name) {
+  updateCategoryForName(name, category) {
     let categories = Object.assign(this.state.categories, {});
-    // create the new timer
-    let category = this.getCategoryForName(name);
-    if(category.timers === undefined) {
-      category.timers = [];
-    }
-    let timer = {
-      start: moment().format(),
-    };
-    category.timers.push(timer);
-    // add this timer to the array
     categories.map(cat => {
-      if(cat.name===name) {
+      if(cat.name === name) {
         return category;
       } else {
         return cat;
@@ -75,8 +64,43 @@ class Timer extends Component {
     this.setState({categories: categories});
   }
 
+  /**
+   * Adds a new start timer if none is running for this category
+   * @param  {string} name [name of category]
+   */
+  startTimer(name) {
+    // create the new timer
+    let category = this.getCategoryForName(name);
+    if(category.timers === undefined) {
+      category.timers = [];
+    }
+    // check no unfinished timers
+    for(let timer of category.timers) {
+      if(timer.start !== undefined && timer.end === undefined) {
+        throw Error('There is an unfinished timer');
+      }
+    }
+    // create new timer and add to the array
+    let timer = {
+      start: moment().format(),
+    };
+    category.timers.push(timer);
+    this.updateCategoryForName(name, category);
+  }
+
+  /**
+   * Stops any running timer on this category
+   * @param  {string} name [name of category]
+   */
   stopTimer(name) {
-    console.log(`timername: ${name}`);
+    let category = this.getCategoryForName(name);
+    for(let timer of category.timers) {
+      if(timer.start !== undefined && timer.end === undefined) {
+        timer.end = moment().format();
+        break;
+      }
+    }
+    this.updateCategoryForName(name, category);
   }
 
   render() {
