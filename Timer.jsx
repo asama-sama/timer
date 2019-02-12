@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import CategoryInput from './CategoryInputComponent/CategoryInput';
+import Category from './CategoryComponent/Category';
 
 class Timer extends Component {
   
@@ -48,9 +49,9 @@ class Timer extends Component {
         <div className="Categories">
           {this.state.categories.map(category => {
             return (
-              <div key={category.name}>
-                {category.name}
-              </div>);
+              <Category key={category.name}
+                {...category}
+              />);
           })}
         </div>
         <CategoryInput
