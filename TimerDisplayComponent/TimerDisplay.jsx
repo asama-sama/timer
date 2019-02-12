@@ -7,38 +7,18 @@ class TimerDisplay extends Component {
   constructor(props) {
     super(props);
     this.state = {refreshClock: true};
+    this.formatTime = this.formatTime.bind(this);
   }
 
-  getTime(start, end) {
-    let mStart = moment(start);
-    let mEnd = moment(end);
-    return mEnd.diff(mStart, 'seconds');
-  }
-
-  tick() {
-    this.setState({refreshClock: !this.state.refreshClock});
-    if(this.props.start !== undefined && this.props.end !== undefined) {
-      clearInterval(this.timerId);
-    }
-  }
-
-  componentDidMount() {
-    if(this.props.start !== undefined && this.props.end === undefined) {
-      this.timerId = setInterval(
-        () => this.tick(),
-        1000
-      );
-    }
-  }
-
-  componentWillUnmount() {
-    clearInterval(this.timerId);
+  formatTime(time) {
+    return moment(time).format('hh:mm:ss');
   }
 
   render() {
     return(
       <div>
-        <span>{this.getTime(this.props.start, this.props.end)}</span>
+        <span>{this.formatTime(this.props.start)} </span>-
+        <span> {this.formatTime(this.props.end)}</span>
       </div>
     );
   }

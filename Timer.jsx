@@ -40,7 +40,10 @@ class Timer extends Component {
 
         let newCategories = Object.assign( 
           this.state.categories, {});
-        newCategories.push({name: e.target.value});
+        newCategories.push({
+          name: e.target.value,
+          timers: []
+        });
 
         this.setState({categories: newCategories});
         this.setState({newCategory: ''});
