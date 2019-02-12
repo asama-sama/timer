@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import { Button } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
+import TimerDisplay from '../TimerDisplayComponent/TimerDisplay';
 import './Category.css';
 
 class Category extends Component {
@@ -20,8 +21,7 @@ class Category extends Component {
         <div>{this.props.timers.map( (timer, idx) => {
           return (
             <div key={idx}>
-              <span>{timer.start}</span>
-              <span>{timer.end}</span>
+              <TimerDisplay {...timer}></TimerDisplay>
             </div>);
         })}</div>
       </div>
