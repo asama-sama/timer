@@ -11,6 +11,18 @@ class Category extends Component {
   }
 
   render() {
+    let timers;
+    if(this.props.timers !== undefined) {
+      timers = <div>{this.props.timers.map( (timer, idx) => {
+        return (
+          <div key={idx}>
+            <TimerDisplay {...timer}></TimerDisplay>
+          </div>);
+      })}</div>;
+    } else {
+      timers = <div />;
+    }
+
     return (
       <div styleName='Category'>
         <div>
@@ -18,12 +30,7 @@ class Category extends Component {
           <Button color='green' onClick={this.props.startTimer}>start</Button>
           <Button color='red' onClick={this.props.stopTimer}>stop</Button>
         </div>
-        <div>{this.props.timers.map( (timer, idx) => {
-          return (
-            <div key={idx}>
-              <TimerDisplay {...timer}></TimerDisplay>
-            </div>);
-        })}</div>
+        {timers}
       </div>
     );
   }
