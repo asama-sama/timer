@@ -6,3 +6,12 @@
   width: 100px;
   display: inline-block;
 }
+
+.Category-Sumtime {
+  font-weight: bold;
+  color: #FFD700;
+}
+
+.Category-Buttons {
+  margin-left: 10px;
+}

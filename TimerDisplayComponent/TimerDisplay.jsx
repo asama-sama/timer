@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import moment from 'moment';
 import PropTypes from 'prop-types';
+import './TimerDisplay.css';
 
 class TimerDisplay extends Component {
 
@@ -16,7 +17,7 @@ class TimerDisplay extends Component {
 
   render() {
     return(
-      <div>
+      <div styleName='TimerDisplay'>
         <span>{this.formatTime(this.props.start)} </span>-
         <span> {this.formatTime(this.props.end)}</span>
       </div>
@@ -25,6 +26,7 @@ class TimerDisplay extends Component {
 }
 TimerDisplay.propTypes = {
   start: PropTypes.string,
-  end: PropTypes.string
+  end: PropTypes.string,
+  active: PropTypes.bool.isRequired
 };
 export default TimerDisplay;

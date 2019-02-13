@@ -13,6 +13,7 @@ class Category extends Component {
       refreshClock: true};
     this.sumTimers = this.sumTimers.bind(this);
     this.isStartDisabled = this.isStartDisabled.bind(this);
+    this.isTimerActive = this.isTimerActive.bind(this);
   }
 
   tick() {
@@ -54,6 +55,10 @@ class Category extends Component {
     }, true);
   }
 
+  isTimerActive() {
+    return this.props.name===this.props.activeTimer;
+  }
+
   componentDidMount() {
     this.timerID = setInterval(
       () => this.tick(), 1000
@@ -70,7 +75,7 @@ class Category extends Component {
       timers = <div>{this.props.timers.map( (timer, idx) => {
         return (
           <div key={idx}>
-            <TimerDisplay {...timer}></TimerDisplay>
+            <TimerDisplay {...timer} active={this.isTimerActive()}></TimerDisplay>
           </div>);
       })}</div>;
     } else {
@@ -81,10 +86,20 @@ class Category extends Component {
       <div styleName='Category'>
         <div>
           <span styleName='Category-Text'>{this.props.name}</span>
-          <span>{this.sumTimers()}</span>
-          <Button.Group>
-            <Button disabled={this.props.name === this.props.activeTimer} color='green' onClick={this.props.startTimer}>start</Button>
-            <Button disabled={this.props.name !== this.props.activeTimer} color='red' onClick={this.props.stopTimer}>stop</Button>
+          <span styleName={this.isTimerActive() ? 'Category-Sumtime': ''}>{this.sumTimers()}</span>
+          <Button.Group size='tiny' styleName=''>
+            <Button
+              disabled={this.props.name === this.props.activeTimer}
+              color='green' 
+              onClick={this.props.startTimer}>
+                start
+            </Button>
+            <Button 
+              disabled={this.props.name !== this.props.activeTimer} 
+              color='red' 
+              onClick={this.props.stopTimer}>
+              stop
+            </Button>
           </Button.Group>
         </div>
         {timers}
