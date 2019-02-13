@@ -83,8 +83,8 @@ class Category extends Component {
           <span styleName='Category-Text'>{this.props.name}</span>
           <span>{this.sumTimers()}</span>
           <Button.Group>
-            <Button disabled={!this.isStartDisabled()} color='green' onClick={this.props.startTimer}>start</Button>
-            <Button disabled={this.isStartDisabled()} color='red' onClick={this.props.stopTimer}>stop</Button>
+            <Button disabled={this.props.name === this.props.activeTimer} color='green' onClick={this.props.startTimer}>start</Button>
+            <Button disabled={this.props.name !== this.props.activeTimer} color='red' onClick={this.props.stopTimer}>stop</Button>
           </Button.Group>
         </div>
         {timers}
@@ -96,6 +96,7 @@ Category.propTypes = {
   name: PropTypes.string.isRequired,
   timers: PropTypes.array,
   startTimer: PropTypes.func.isRequired,
-  stopTimer: PropTypes.func.isRequired
+  stopTimer: PropTypes.func.isRequired,
+  activeTimer: PropTypes.string.isRequired
 };
 export default Category;

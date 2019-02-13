@@ -15,12 +15,18 @@ class Timer extends Component {
         name: 'whatevs',
         timers: []
       }],
-      newCategory: ''
+      newCategory: '',
+      activeTimer: ''
     };
     this.updateNewCategory = this.updateNewCategory.bind(this);
     this.onEnterNewCategory = this.onEnterNewCategory.bind(this);
     this.startTimer = this.startTimer.bind(this);
     this.stopTimer = this.stopTimer.bind(this);
+    this.updateActiveTimer = this.updateActiveTimer.bind(this);
+  }
+
+  updateActiveTimer(name) {
+    this.setState({activeTimer: name});
   }
 
   updateNewCategory(e) {
@@ -77,18 +83,29 @@ class Timer extends Component {
     if(category.timers === undefined) {
       category.timers = [];
     }
-    // check no unfinished timers
+    // check no unfinished timers on this category
     for(let timer of category.timers) {
       if(timer.start !== undefined && timer.end === undefined) {
-        throw Error('There is an unfinished timer');
+        throw Error(`There is an unfinished timer for ${name}`);
       }
     }
+    // stop all other timers
+    let categories = this.state.categories.map(cat => {
+      if(
+        cat.name !== name &&
+        cat.end === undefined) {
+        this.stopTimer(cat.name);
+      }
+    });
+    this.setState({categories: categories});
+
     // create new timer and add to the array
     let timer = {
       start: moment().format(),
     };
     category.timers.push(timer);
     this.updateCategoryForName(name, category);
+    this.updateActiveTimer(name);
   }
 
   /**
@@ -104,6 +121,7 @@ class Timer extends Component {
       }
     }
     this.updateCategoryForName(name, category);
+    this.updateActiveTimer('');
   }
 
   render() {
@@ -115,6 +133,7 @@ class Timer extends Component {
               <Category key={category.name}
                 startTimer={()=>this.startTimer(category.name)}
                 stopTimer={()=>this.stopTimer(category.name)}
+                activeTimer={this.state.activeTimer}
                 {...category}
               />);
           })}
