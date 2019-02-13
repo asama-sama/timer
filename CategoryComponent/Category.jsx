@@ -9,18 +9,10 @@ class Category extends Component {
   
   constructor(props) {
     super(props);
-    this.state = {refreshClock: true};
+    this.state = {
+      refreshClock: true};
     this.sumTimers = this.sumTimers.bind(this);
-  }
-
-  componentDidMount() {
-    this.timerID = setInterval(
-      () => this.tick(), 1000
-    );
-  }
-
-  componentWillUnmount() {
-    clearInterval(this.timerID);
+    this.isStartDisabled = this.isStartDisabled.bind(this);
   }
 
   tick() {
@@ -49,6 +41,29 @@ class Category extends Component {
     return this.formatTimeForSeconds(seconds);
   }
 
+  /**
+   * Returns true if start button should be disabled
+   */
+  isStartDisabled() {
+    return this.props.timers.map(timer => {
+      return (
+        !!timer.start && !!timer.end 
+        || !timer.start && !timer.end);
+    }).reduce( (acc, curr) => {
+      return curr && acc;
+    }, true);
+  }
+
+  componentDidMount() {
+    this.timerID = setInterval(
+      () => this.tick(), 1000
+    );
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.timerID);
+  }
+
   render() {
     let timers;
     if(this.props.timers !== undefined) {
@@ -67,8 +82,10 @@ class Category extends Component {
         <div>
           <span styleName='Category-Text'>{this.props.name}</span>
           <span>{this.sumTimers()}</span>
-          <Button color='green' onClick={this.props.startTimer}>start</Button>
-          <Button color='red' onClick={this.props.stopTimer}>stop</Button>
+          <Button.Group>
+            <Button disabled={!this.isStartDisabled()} color='green' onClick={this.props.startTimer}>start</Button>
+            <Button disabled={this.isStartDisabled()} color='red' onClick={this.props.stopTimer}>stop</Button>
+          </Button.Group>
         </div>
         {timers}
       </div>
