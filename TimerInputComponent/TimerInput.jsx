@@ -1,25 +1,25 @@
-import React, {Component} from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 
-class TimerInput extends Component {
-  constructor(props) {
-    super(props);
+const onEnterAddTimer = (addTimer, e) => {
+  if(e.key == 'Enter') {
+    addTimer(e.target.value);
   }
-  render() {
-    return (
-      <div className="Timer">
-        <input
-          type="text" name="newTimer" 
-          value={this.props.newTimer} 
-          onChange={this.props.updateNewTimer}
-          onKeyPress={this.props.onEnterNewTimer}/>
-      </div>
-    );
-  }
-}
+};
+
+const TimerInput = ({newTimer, updateNewTimer, addTimer}) => (
+  <div className="Timer">
+    <input
+      type="text" name="newTimer" 
+      value={newTimer} 
+      onChange={updateNewTimer}
+      onKeyPress={e => onEnterAddTimer(addTimer, e)}/>
+  </div>
+);
+
 TimerInput.propTypes = {
   newTimer: PropTypes.string.isRequired,
   updateNewTimer: PropTypes.func.isRequired,
-  onEnterNewTimer: PropTypes.func.isRequired
+  addTimer: PropTypes.func.isRequired
 };
 export default TimerInput;

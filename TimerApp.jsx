@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
-import TimerInput from './TimerInputComponent/TimerInput';
+import TimerInputContainer from './containers/TimerInputContainer';
 import Timer from './TimerComponent/Timer';
 import moment from 'moment';
+import PropTypes from 'prop-types';
 
 class TimerApp extends Component {
   
@@ -42,7 +43,6 @@ class TimerApp extends Component {
         if(cat !== undefined && cat.name == newTimer) {
           throw new Error(`Timer: ${cat.name} already exists`);
         }
-        
 
         let newCategories = Object.assign( 
           this.state.timers, {});
@@ -105,7 +105,7 @@ class TimerApp extends Component {
     };
     timer.timeBlocks.push(timeBlock);
     this.updateTimerForName(name, timer);
-    this.updateActiveTimer(name);
+    // this.updateActiveTimer(name);
   }
 
   /**
@@ -128,17 +128,17 @@ class TimerApp extends Component {
     return (
       <div>
         <div className="Categories">
-          {this.state.timers.map(timer => {
+          {this.props.timers.map(timer => {
             return (
               <Timer key={timer.name}
-                startTimer={()=>this.startTimer(timer.name)}
+                startTimer={()=>this.props.startTimer(timer.name)}
                 stopTimer={()=>this.stopTimer(timer.name)}
                 activeTimer={this.state.activeTimer}
                 {...timer}
               />);
           })}
         </div>
-        <TimerInput
+        <TimerInputContainer
           newTimer={this.state.newTimer}
           updateNewTimer={this.updateNewTimer}
           onEnterNewTimer={this.onEnterNewTimer}
@@ -147,5 +147,9 @@ class TimerApp extends Component {
     );
   }
 }
+TimerApp.propTypes = {
+  timers: PropTypes.any.isRequired,
+  startTimer: PropTypes.any.isRequired
+};
 
 export default TimerApp;
