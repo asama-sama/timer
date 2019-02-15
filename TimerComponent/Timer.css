@@ -1,17 +1,18 @@
-.Category {
+.Timer {
   margin-bottom: 10px;
 }
 
-.Category-Text {
+.Timer-Text {
   width: 100px;
   display: inline-block;
 }
 
-.Category-Sumtime {
+.Timer-Sumtime {
   font-weight: bold;
   color: #FFD700;
 }
 
-.Category-Buttons {
+.Timer-Buttons {
   margin-left: 10px;
+  display: inline-block;
 }

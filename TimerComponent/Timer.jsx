@@ -3,9 +3,9 @@ import { Button } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import TimerDisplay from '../TimerDisplayComponent/TimerDisplay';
-import './Category.css';
+import './Timer.css';
 
-class Category extends Component {
+class Timer extends Component {
   
   constructor(props) {
     super(props);
@@ -36,7 +36,7 @@ class Category extends Component {
   }
 
   sumTimers() {
-    let seconds = this.props.timers.reduce( (acc, curr) => {
+    let seconds = this.props.timeBlocks.reduce( (acc, curr) => {
       return moment(curr.end).diff(moment(curr.start), 'seconds') + acc;
     }, 0);
     return this.formatTimeForSeconds(seconds);
@@ -46,7 +46,7 @@ class Category extends Component {
    * Returns true if start button should be disabled
    */
   isStartDisabled() {
-    return this.props.timers.map(timer => {
+    return this.props.timeBlocks.map(timer => {
       return (
         !!timer.start && !!timer.end 
         || !timer.start && !timer.end);
@@ -70,48 +70,50 @@ class Category extends Component {
   }
 
   render() {
-    let timers;
-    if(this.props.timers !== undefined) {
-      timers = <div>{this.props.timers.map( (timer, idx) => {
+    let timeBlocks;
+    if(this.props.timeBlocks !== undefined) {
+      timeBlocks = <div>{this.props.timeBlocks.map( (timer, idx) => {
         return (
           <div key={idx}>
             <TimerDisplay {...timer} active={this.isTimerActive()}></TimerDisplay>
           </div>);
       })}</div>;
     } else {
-      timers = <div />;
+      timeBlocks = <div />;
     }
 
     return (
-      <div styleName='Category'>
+      <div styleName='Timer'>
         <div>
-          <span styleName='Category-Text'>{this.props.name}</span>
-          <span styleName={this.isTimerActive() ? 'Category-Sumtime': ''}>{this.sumTimers()}</span>
-          <Button.Group size='tiny' styleName=''>
-            <Button
-              disabled={this.props.name === this.props.activeTimer}
-              color='green' 
-              onClick={this.props.startTimer}>
-                start
-            </Button>
-            <Button 
-              disabled={this.props.name !== this.props.activeTimer} 
-              color='red' 
-              onClick={this.props.stopTimer}>
-              stop
-            </Button>
-          </Button.Group>
+          <span styleName='Timer-Text'>{this.props.name}</span>
+          <span styleName={this.isTimerActive() ? 'Timer-Sumtime': ''}>{this.sumTimers()}</span>
+          <div styleName='Timer-Buttons'>
+            <Button.Group size='tiny' styleName=''>
+              <Button
+                disabled={this.props.name === this.props.activeTimer}
+                color='green' 
+                onClick={this.props.startTimer}>
+                  start
+              </Button>
+              <Button 
+                disabled={this.props.name !== this.props.activeTimer} 
+                color='red' 
+                onClick={this.props.stopTimer}>
+                stop
+              </Button>
+            </Button.Group>
+          </div>
         </div>
-        {timers}
+        {timeBlocks}
       </div>
     );
   }
 }
-Category.propTypes = {
+Timer.propTypes = {
   name: PropTypes.string.isRequired,
-  timers: PropTypes.array,
+  timeBlocks: PropTypes.array,
   startTimer: PropTypes.func.isRequired,
   stopTimer: PropTypes.func.isRequired,
   activeTimer: PropTypes.string.isRequired
 };
-export default Category;
+export default Timer;
