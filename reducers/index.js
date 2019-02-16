@@ -45,13 +45,14 @@ const timers = (state = initialState, action) => {
   case 'START_TIMER':{
     try {
       let timers = state.timers.map(timer => {
-        if (timer.name === action.name) {
-          // check no unfinished timeBlocks on this timer
-          for(let t of timer.timeBlocks) {
-            if(t.start !== undefined && t.end === undefined) {
-              throw Error(`There is an unfinished timer for ${name}`);
-            }
+        // end any running timers
+        timer.timeBlocks.map(tb => {
+          if(tb.end === undefined) {
+            tb.end = moment().format();
           }
+          return tb;
+        });
+        if (timer.name === action.name) {
           return {
             ...timer,
             timeBlocks: [
