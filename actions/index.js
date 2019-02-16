@@ -12,3 +12,8 @@ export const startTimer = name => ({
   type: 'START_TIMER',
   name
 });
+
+export const stopTimer = name => ({
+  type: 'STOP_TIMER',
+  name
+});

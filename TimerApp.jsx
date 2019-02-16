@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import TimerInputContainer from './containers/TimerInputContainer';
-import Timer from './TimerComponent/Timer';
+import TimerContainer from './Containers/TimerContainer';
 import moment from 'moment';
 import PropTypes from 'prop-types';
 
@@ -9,15 +9,7 @@ class TimerApp extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      timers: [{
-        name: 'groovin\'',
-        timeBlocks: []
-      }, {
-        name: 'whatevs',
-        timeBlocks: []
-      }],
       newTimer: '',
-      activeTimer: ''
     };
     this.updateNewTimer = this.updateNewTimer.bind(this);
     this.onEnterNewTimer = this.onEnterNewTimer.bind(this);
@@ -130,10 +122,9 @@ class TimerApp extends Component {
         <div className="Categories">
           {this.props.timers.map(timer => {
             return (
-              <Timer key={timer.name}
+              <TimerContainer key={timer.name}
                 startTimer={()=>this.props.startTimer(timer.name)}
-                stopTimer={()=>this.stopTimer(timer.name)}
-                activeTimer={this.state.activeTimer}
+                activeTimer={this.props.activeTimer}
                 {...timer}
               />);
           })}
@@ -149,7 +140,8 @@ class TimerApp extends Component {
 }
 TimerApp.propTypes = {
   timers: PropTypes.any.isRequired,
-  startTimer: PropTypes.any.isRequired
+  startTimer: PropTypes.any.isRequired,
+  activeTimer: PropTypes.string.isRequired
 };
 
 export default TimerApp;

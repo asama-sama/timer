@@ -66,12 +66,37 @@ const timers = (state = initialState, action) => {
         }
       });
       return Object.assign({}, state, {
-        timers
+        timers,
+        activeTimer: action.name
       });
     } catch(e) {
       console.error(e);
       return state;
     }
+  }
+  case 'STOP_TIMER': {
+    let timers = state.timers.map(t => {
+      let timeBlocks = t.timeBlocks;
+      if(t.name === action.name) {
+        timeBlocks = t.timeBlocks.map(tb => {
+          if(tb.end === undefined) {
+            tb.end = moment().format();
+          }
+          return tb;
+        });
+      }
+      return {
+        ...t, 
+        ...timeBlocks
+      };
+    });
+    console.log('timers')
+    console.log(timers);
+    return {
+      ...state,
+      activeTimer: '',
+      timers: [...timers]
+    };
   }
   default:
     return state;

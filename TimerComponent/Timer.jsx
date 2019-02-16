@@ -98,7 +98,7 @@ class Timer extends Component {
               <Button 
                 disabled={this.props.name !== this.props.activeTimer} 
                 color='red' 
-                onClick={this.props.stopTimer}>
+                onClick={()=>this.props.stopTimer(this.props.name)}>
                 stop
               </Button>
             </Button.Group>
