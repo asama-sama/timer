@@ -1,15 +1,12 @@
 import { connect } from 'react-redux';
-import { addTimer, updateNewTimerInput } from '../actions';
+import { addTimer } from '../actions';
 import TimerInput from '../TimerInputComponent/TimerInput';
 
-const mapStateToProps = state => ({
-  newTimerInput: state.newTimerInput
-});
+const mapStateToProps = () => ({});
 
-const mapDispatchToProps = (dispatch, ownProps) => {
+const mapDispatchToProps = (dispatch) => {
   return {
-    addTimer: () => dispatch(addTimer(ownProps.newTimer)),
-    updateNewTimerInput: text => dispatch(updateNewTimerInput(text))
+    addTimer: name => dispatch(addTimer(name))
   };
 };
 

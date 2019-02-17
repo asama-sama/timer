@@ -17,10 +17,10 @@ class TimerApp extends Component {
     return (
       <div>
         <div className="Categories">
-          {this.props.timers.map(timer => {
+          {this.props.timers.items.map(timer => {
             return (
               <TimerContainer key={timer.name}
-                {...timer}
+                name={timer.name}
               />);
           })}
         </div>
@@ -32,5 +32,4 @@ class TimerApp extends Component {
 TimerApp.propTypes = {
   timers: PropTypes.any.isRequired,
 };
-
 export default TimerApp;

@@ -17,8 +17,3 @@ export const stopTimer = name => ({
   type: 'STOP_TIMER',
   name
 });
-
-export const updateNewTimerInput = newTimerInput => ({
-  type: 'UPDATE_NEW_TIMER_INPUT',
-  newTimerInput
-});

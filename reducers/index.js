@@ -1,23 +1,18 @@
 import moment from 'moment';
+import {combineReducers} from 'redux';
 
-const initialState = {
-  timers: [{
-    name: 'groovin\'',
-    timeBlocks: []
-  }, {
-    name: 'whatevs',
-    timeBlocks: []
-  }],
-  newTimerInput: '',
-  activeTimer: ''
-};
-
-const timers = (state = initialState, action) => {
-  console.log(state, action);
+const timers = (
+  state = {
+    isFetching: true,
+    didInvalidate: false,
+    items: [],
+    activeTimer: ''
+  }, action) => {
   switch(action.type) {
   case 'ADD_TIMER': {
-    let newTimerInput = state.newTimerInput.trim();
-    if(state.timers.find(timer => timer.name === newTimerInput)) {
+    console.log(action);
+    let newTimerInput = action.name.trim();
+    if(state.items.find(timer => timer.name === newTimerInput)) {
       console.error(`Timer with name ${newTimerInput} already exists`);
       return state;
     }
@@ -25,8 +20,8 @@ const timers = (state = initialState, action) => {
       return state;
     } else {
       return Object.assign({}, state, {
-        timers: [
-          ...state.timers,
+        items: [
+          ...state.items,
           {
             name: newTimerInput,
             timeBlocks: []
@@ -35,7 +30,7 @@ const timers = (state = initialState, action) => {
     }
   }
   case 'START_TIMER':{
-    let timers = state.timers.map(timer => {
+    let timers = state.items.map(timer => {
       // end any running timers
       timer.timeBlocks.map(tb => {
         if(tb.end === undefined) {
@@ -58,12 +53,12 @@ const timers = (state = initialState, action) => {
       }
     });
     return Object.assign({}, state, {
-      timers,
+      items: timers,
       activeTimer: action.name
     });
   }
   case 'STOP_TIMER': {
-    let timers = state.timers.map(t => {
+    let timers = state.items.map(t => {
       let timeBlocks = t.timeBlocks;
       if(t.name === action.name) {
         timeBlocks = t.timeBlocks.map(tb => {
@@ -81,17 +76,15 @@ const timers = (state = initialState, action) => {
     return {
       ...state,
       activeTimer: '',
-      timers: [...timers]
-    };
-  }
-  case 'UPDATE_NEW_TIMER_INPUT': {
-    return {
-      ...state,
-      newTimerInput: action.newTimerInput
+      items: [...timers]
     };
   }
   default:
     return state;
   }
 };
-export default timers;
+
+const rootReducer = combineReducers({
+  timers
+});
+export default rootReducer;

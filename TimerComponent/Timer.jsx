@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
+import moment from 'moment';
 import { Button } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
-import moment from 'moment';
 import TimerDisplay from '../TimerDisplayComponent/TimerDisplay';
 import './Timer.css';
 
@@ -68,7 +68,6 @@ class Timer extends Component {
     } else {
       timeBlocks = <div />;
     }
-
     return (
       <div styleName='Timer'>
         <div>
@@ -101,6 +100,6 @@ Timer.propTypes = {
   timeBlocks: PropTypes.array,
   startTimer: PropTypes.func.isRequired,
   stopTimer: PropTypes.func.isRequired,
-  activeTimer: PropTypes.string.isRequired
+  activeTimer: PropTypes.string.isRequired,
 };
 export default Timer;

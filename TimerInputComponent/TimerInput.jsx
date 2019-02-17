@@ -1,25 +1,40 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-const onEnterAddTimer = (addTimer, e) => {
-  if(e.key == 'Enter') {
-    addTimer(e.target.value);
+class TimerInput extends Component {
+
+  constructor(props) {
+    super(props);
+    this.onEnterAddTimer = this.onEnterAddTimer.bind(this);
+    this.state = {newTimerInput: ''};
   }
-};
 
-const TimerInput = ({newTimerInput, updateNewTimerInput, addTimer}) => (
-  <div className="Timer">
-    <input
-      type="text" name="newTimer" 
-      value={newTimerInput} 
-      onChange={e => updateNewTimerInput(e.target.value)}
-      onKeyPress={e => onEnterAddTimer(addTimer, e)}/>
-  </div>
-);
+  onEnterAddTimer(addTimer, e) {
+    if(e.key == 'Enter') {
+      addTimer(this.state.newTimerInput);
+    }
+  }
 
+  updateNewTimerInput(newTimerInput) {
+    this.setState({newTimerInput});
+  }
+
+  render() {
+    const newTimerInput = this.state.newTimerInput;
+    const addTimer = this.props.addTimer;
+    return(
+      <div className="Timer">
+        <input
+          type="text"
+          name="newTimer" 
+          value={newTimerInput} 
+          onChange={e => this.updateNewTimerInput(e.target.value)}
+          onKeyPress={e => this.onEnterAddTimer(addTimer, e)}
+        />
+      </div>);
+  }
+}
 TimerInput.propTypes = {
-  newTimerInput: PropTypes.string.isRequired,
-  updateNewTimerInput: PropTypes.func.isRequired,
   addTimer: PropTypes.func.isRequired
 };
 export default TimerInput;
