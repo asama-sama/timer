@@ -70,6 +70,7 @@ class Timer extends Component {
   }
 
   render() {
+    let name = this.props.name;
     let timeBlocks;
     if(this.props.timeBlocks !== undefined) {
       timeBlocks = <div>{this.props.timeBlocks.map( (timer, idx) => {
@@ -85,20 +86,20 @@ class Timer extends Component {
     return (
       <div styleName='Timer'>
         <div>
-          <span styleName='Timer-Text'>{this.props.name}</span>
+          <span styleName='Timer-Text'>{name}</span>
           <span styleName={this.isTimerActive() ? 'Timer-Sumtime': ''}>{this.sumTimers()}</span>
           <div styleName='Timer-Buttons'>
             <Button.Group size='tiny' styleName=''>
               <Button
-                disabled={this.props.name === this.props.activeTimer}
+                disabled={name === this.props.activeTimer}
                 color='green' 
-                onClick={this.props.startTimer}>
+                onClick={() => this.props.startTimer(name)}>
                   start
               </Button>
               <Button 
-                disabled={this.props.name !== this.props.activeTimer} 
+                disabled={name !== this.props.activeTimer} 
                 color='red' 
-                onClick={()=>this.props.stopTimer(this.props.name)}>
+                onClick={()=>this.props.stopTimer(name)}>
                 stop
               </Button>
             </Button.Group>

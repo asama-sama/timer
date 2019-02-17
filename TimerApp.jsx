@@ -13,8 +13,6 @@ class TimerApp extends Component {
     };
     this.updateNewTimer = this.updateNewTimer.bind(this);
     this.onEnterNewTimer = this.onEnterNewTimer.bind(this);
-    this.startTimer = this.startTimer.bind(this);
-    this.stopTimer = this.stopTimer.bind(this);
     this.updateActiveTimer = this.updateActiveTimer.bind(this);
   }
 
@@ -65,57 +63,6 @@ class TimerApp extends Component {
     this.setState({timers: timers});
   }
 
-  /**
-   * Adds a new start timer if none is running for this category
-   * @param  {string} name [name of category]
-   */
-  startTimer(name) {
-    // create the new timer
-    let timer = this.getTimerForName(name);
-    if(timer.timeBlocks === undefined) {
-      timer.timeBlocks = [];
-    }
-    // check no unfinished timeBlocks on this timer
-    for(let timer of timer.timeBlocks) {
-      if(timer.start !== undefined && timer.end === undefined) {
-        throw Error(`There is an unfinished timer for ${name}`);
-      }
-    }
-    // stop all other timeBlocks
-    let timers = this.state.timers.map(cat => {
-      if(
-        cat.name !== name &&
-        cat.end === undefined) {
-        this.stopTimer(cat.name);
-      }
-    });
-    this.setState({timers: timers});
-
-    // create new timeBlock and add to the array
-    let timeBlock = {
-      start: moment().format(),
-    };
-    timer.timeBlocks.push(timeBlock);
-    this.updateTimerForName(name, timer);
-    // this.updateActiveTimer(name);
-  }
-
-  /**
-   * Stops any running timer on this timer
-   * @param  {string} name [name of timer]
-   */
-  stopTimer(name) {
-    let timer = this.getTimerForName(name);
-    for(let timer of timer.timeBlocks) {
-      if(timer.start !== undefined && timer.end === undefined) {
-        timer.end = moment().format();
-        break;
-      }
-    }
-    this.updateTimerForName(name, timer);
-    this.updateActiveTimer('');
-  }
-
   render() {
     return (
       <div>
@@ -123,8 +70,6 @@ class TimerApp extends Component {
           {this.props.timers.map(timer => {
             return (
               <TimerContainer key={timer.name}
-                startTimer={()=>this.props.startTimer(timer.name)}
-                activeTimer={this.props.activeTimer}
                 {...timer}
               />);
           })}
@@ -140,7 +85,6 @@ class TimerApp extends Component {
 }
 TimerApp.propTypes = {
   timers: PropTypes.any.isRequired,
-  startTimer: PropTypes.any.isRequired,
   activeTimer: PropTypes.string.isRequired
 };
 
