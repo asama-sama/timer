@@ -12,7 +12,6 @@ class Timer extends Component {
     this.state = {
       refreshClock: true};
     this.sumTimers = this.sumTimers.bind(this);
-    this.isStartDisabled = this.isStartDisabled.bind(this);
     this.isTimerActive = this.isTimerActive.bind(this);
   }
 
@@ -40,19 +39,6 @@ class Timer extends Component {
       return moment(curr.end).diff(moment(curr.start), 'seconds') + acc;
     }, 0);
     return this.formatTimeForSeconds(seconds);
-  }
-
-  /**
-   * Returns true if start button should be disabled
-   */
-  isStartDisabled() {
-    return this.props.timeBlocks.map(timer => {
-      return (
-        !!timer.start && !!timer.end 
-        || !timer.start && !timer.end);
-    }).reduce( (acc, curr) => {
-      return curr && acc;
-    }, true);
   }
 
   isTimerActive() {
