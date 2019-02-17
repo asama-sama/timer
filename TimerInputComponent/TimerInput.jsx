@@ -7,19 +7,19 @@ const onEnterAddTimer = (addTimer, e) => {
   }
 };
 
-const TimerInput = ({newTimer, updateNewTimer, addTimer}) => (
+const TimerInput = ({newTimerInput, updateNewTimerInput, addTimer}) => (
   <div className="Timer">
     <input
       type="text" name="newTimer" 
-      value={newTimer} 
-      onChange={updateNewTimer}
+      value={newTimerInput} 
+      onChange={e => updateNewTimerInput(e.target.value)}
       onKeyPress={e => onEnterAddTimer(addTimer, e)}/>
   </div>
 );
 
 TimerInput.propTypes = {
-  newTimer: PropTypes.string.isRequired,
-  updateNewTimer: PropTypes.func.isRequired,
+  newTimerInput: PropTypes.string.isRequired,
+  updateNewTimerInput: PropTypes.func.isRequired,
   addTimer: PropTypes.func.isRequired
 };
 export default TimerInput;
