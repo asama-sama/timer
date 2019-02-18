@@ -3,12 +3,26 @@ import {combineReducers} from 'redux';
 
 const timers = (
   state = {
-    isFetching: true,
+    isFetching: false,
     didInvalidate: false,
     items: [],
     activeTimer: ''
   }, action) => {
   switch(action.type) {
+  case 'REQUEST_STATE': 
+    return {
+      ...state,
+      isFetching: true,
+      didInvalidate: false
+    };
+  case 'RECEIVE_STATE' :
+    return {
+      ...state,
+      isFetching: false,
+      didInvalidate: false,
+      lastUpdated: action.receivedAt,
+      ...action.data
+    };
   case 'ADD_TIMER': {
     console.log(action);
     let newTimerInput = action.name.trim();

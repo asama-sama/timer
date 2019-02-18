@@ -13,6 +13,10 @@ class TimerApp extends Component {
     this.setState({newTimer: e.target.value});
   }
 
+  componentDidMount() {
+    this.props.fetchState();
+  }
+
   render() {
     return (
       <div>
@@ -31,5 +35,6 @@ class TimerApp extends Component {
 }
 TimerApp.propTypes = {
   timers: PropTypes.any.isRequired,
+  fetchState: PropTypes.func.isRequired
 };
 export default TimerApp;
