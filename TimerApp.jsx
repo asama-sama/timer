@@ -21,7 +21,7 @@ class TimerApp extends Component {
     return (
       <div>
         <div className="Categories">
-          {this.props.timers.items.map(timer => {
+          {this.props.timers.timersState.items.map(timer => {
             return (
               <TimerContainer key={timer.name}
                 name={timer.name}

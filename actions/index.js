@@ -36,7 +36,46 @@ export const fetchState = () => {
       .then(
         res => res.json(),
         error => console.error('An error occurred', error))
-      .then(json => dispatch(receiveState(json))
-      );
+      .then(json => {
+        // object is empty
+        if(!Object.keys(json).length) {
+          dispatch(receiveState(undefined));
+        } else {
+          dispatch(receiveState(json));
+        }
+      });
+  };
+};
+
+export const saveTimersStateRequest = () => ({
+  type: 'SAVE_TIMERS_STATE_REQUEST'
+});
+
+export const saveTimersStateSuccess = () => ({
+  type: 'SAVE_TIMERS_STATE_SUCCESS'
+});
+
+export const saveTimersStateFail = () => ({
+  type: 'SAVE_TIMERS_STATE_FAIL'
+});
+
+export const saveTimersState = (data) => {
+  return dispatch => {
+    dispatch(saveTimersStateRequest());
+
+    return fetch('/api/timer/saveTimersState', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    })
+      .then( res => {
+        if(res.ok) {
+          dispatch(saveTimersStateSuccess());
+        } else {
+          dispatch(saveTimersStateFail());
+        }
+      });
   };
 };

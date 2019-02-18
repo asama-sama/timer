@@ -1,12 +1,17 @@
 import moment from 'moment';
 import {combineReducers} from 'redux';
+import { createStore, applyMiddleware } from 'redux';
+import { createLogger } from 'redux-logger';
+import thunkMiddleware from 'redux-thunk';
 
 const timers = (
   state = {
     isFetching: false,
     didInvalidate: false,
-    items: [],
-    activeTimer: ''
+    timersState: {
+      items: [],
+      activeTimer: ''
+    },
   }, action) => {
   switch(action.type) {
   case 'REQUEST_STATE': 
@@ -15,36 +20,46 @@ const timers = (
       isFetching: true,
       didInvalidate: false
     };
-  case 'RECEIVE_STATE' :
-    return {
+  case 'RECEIVE_STATE' : {
+    let newState = {
       ...state,
       isFetching: false,
       didInvalidate: false,
-      lastUpdated: action.receivedAt,
-      ...action.data
+      lastUpdated: action.receivedAt
     };
+    if(action.data !== undefined) {
+      newState = {
+        ...newState,
+        timersState: action.data
+      };
+    }
+    return newState;
+  }
   case 'ADD_TIMER': {
-    console.log(action);
     let newTimerInput = action.name.trim();
-    if(state.items.find(timer => timer.name === newTimerInput)) {
+    if(state.timersState.items.find(timer => timer.name === newTimerInput)) {
       console.error(`Timer with name ${newTimerInput} already exists`);
       return state;
     }
     if(newTimerInput === '') {
       return state;
     } else {
-      return Object.assign({}, state, {
-        items: [
-          ...state.items,
-          {
-            name: newTimerInput,
-            timeBlocks: []
-          }]
-      });
+      return {
+        ...state,
+        timersState: {
+          ...state.timersState,
+          items: [
+            ...state.timersState.items,
+            {
+              name: newTimerInput,
+              timeBlocks: []
+            }]
+        }
+      };
     }
   }
   case 'START_TIMER':{
-    let timers = state.items.map(timer => {
+    let timers = state.timersState.items.map(timer => {
       // end any running timers
       timer.timeBlocks.map(tb => {
         if(tb.end === undefined) {
@@ -66,13 +81,16 @@ const timers = (
         return timer;
       }
     });
-    return Object.assign({}, state, {
-      items: timers,
-      activeTimer: action.name
-    });
+    return Object.assign({}, state, 
+      {
+        timersState: {
+          items: timers,
+          activeTimer: action.name
+        }
+      });
   }
   case 'STOP_TIMER': {
-    let timers = state.items.map(t => {
+    let timers = state.timersState.items.map(t => {
       let timeBlocks = t.timeBlocks;
       if(t.name === action.name) {
         timeBlocks = t.timeBlocks.map(tb => {
@@ -89,8 +107,10 @@ const timers = (
     });
     return {
       ...state,
-      activeTimer: '',
-      items: [...timers]
+      timersState: {
+        activeTimer: '',
+        items: [...timers]
+      }
     };
   }
   default:
@@ -101,4 +121,14 @@ const timers = (
 const rootReducer = combineReducers({
   timers
 });
-export default rootReducer;
+
+const loggerMiddleware = createLogger();
+
+const store = createStore(
+  rootReducer,
+  applyMiddleware(
+    thunkMiddleware,
+    loggerMiddleware)
+);
+
+export default store;
