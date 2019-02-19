@@ -12,26 +12,28 @@ const timer = (
   action) => {
 
   switch(action.type) {
-  case 'START_TIMER':
+  case 'START_TIMER':{
+    let timeBlocks = state.timeBlocks.map(tb => {
+      if(tb.end === undefined) {
+        tb.end = moment().format();
+      }
+      return tb;
+    });
+    let newState = {
+      ...state, ...timeBlocks
+    };
     if (state.name === action.name) {
-      let timeBlocks = state.timeBlocks.map(tb => {
-        if(tb.end === undefined) {
-          tb.end = moment().format();
-        }
-        return tb;
-      });
-      return {
+      newState = {
         ...state,
         timeBlocks: [
-          ...timeBlocks,
+          ...newState.timeBlocks,
           {
             start: moment().format()
           }
-        ]
-      };
-    } else {
-      return state;
+        ]};
     }
+    return newState;
+  }
   case 'STOP_TIMER':{
     if(state.name === action.name) {
       let timeBlocks = state.timeBlocks.map(tb => {
