@@ -4,6 +4,52 @@ import { createStore, applyMiddleware } from 'redux';
 import { createLogger } from 'redux-logger';
 import thunkMiddleware from 'redux-thunk';
 
+const timer = (
+  state = {
+    name: '',
+    timeBlocks: []
+  },
+  action) => {
+
+  switch(action.type) {
+  case 'START_TIMER':
+    if (state.name === action.name) {
+      let timeBlocks = state.timeBlocks.map(tb => {
+        if(tb.end === undefined) {
+          tb.end = moment().format();
+        }
+        return tb;
+      });
+      return {
+        ...state,
+        timeBlocks: [
+          ...timeBlocks,
+          {
+            start: moment().format()
+          }
+        ]
+      };
+    } else {
+      return state;
+    }
+  case 'STOP_TIMER':{
+    if(state.name === action.name) {
+      let timeBlocks = state.timeBlocks.map(tb => {
+        if(tb.end === undefined) {
+          tb.end = moment().format();
+        }
+        return tb;
+      });
+      return {...state, ...timeBlocks};
+    } else {
+      return state;
+    }
+  }
+  default:
+    return state;
+  }
+};
+
 const timers = (
   state = {
     isFetching: false,
@@ -58,61 +104,23 @@ const timers = (
       };
     }
   }
-  case 'START_TIMER':{
-    let timers = state.timersState.items.map(timer => {
-      // end any running timers
-      timer.timeBlocks.map(tb => {
-        if(tb.end === undefined) {
-          tb.end = moment().format();
-        }
-        return tb;
-      });
-      if (timer.name === action.name) {
-        return {
-          ...timer,
-          timeBlocks: [
-            ...timer.timeBlocks,
-            {
-              start: moment().format()
-            }
-          ]
-        };
-      } else {
-        return timer;
-      }
-    });
-    return Object.assign({}, state, 
-      {
-        timersState: {
-          items: timers,
-          activeTimer: action.name
-        }
-      });
-  }
-  case 'STOP_TIMER': {
-    let timers = state.timersState.items.map(t => {
-      let timeBlocks = t.timeBlocks;
-      if(t.name === action.name) {
-        timeBlocks = t.timeBlocks.map(tb => {
-          if(tb.end === undefined) {
-            tb.end = moment().format();
-          }
-          return tb;
-        });
-      }
-      return {
-        ...t, 
-        ...timeBlocks
-      };
-    });
+
+  case 'START_TIMER':
+  case 'STOP_TIMER':{
+    let timers = state.timersState.items.map(t => timer(t, action));
+    let activeTimer = action.name;
+    if(action.type === 'STOP_TIMER') {
+      activeTimer = '';
+    }
     return {
       ...state,
       timersState: {
-        activeTimer: '',
-        items: [...timers]
+        items: timers,
+        activeTimer
       }
     };
   }
+
   default:
     return state;
   }
