@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import TimerInputContainer from './containers/TimerInputContainer';
-import TimerContainer from './Containers/TimerContainer';
+import TimerContainer from './containers/TimerContainer';
 import PropTypes from 'prop-types';
 
 class TimerApp extends Component {
