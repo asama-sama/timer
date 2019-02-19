@@ -17,7 +17,10 @@ const mapDispatchToProps = dispatch => ({
     dispatch(stopTimer(name));
     saveTimersState(dispatch);
   },
-  startTimer: name => dispatch(startTimer(name))
+  startTimer: name => {
+    dispatch(startTimer(name));
+    saveTimersState(dispatch);
+  }
 });
 
 export default connect(

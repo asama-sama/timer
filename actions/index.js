@@ -22,15 +22,20 @@ export const requestState = () => ({
   type: 'REQUEST_STATE'
 });
 
-export const receiveState = json => ({
+export const requestStateSuccess = json => ({
   type: 'RECEIVE_STATE',
   data: json,
   receivedAt: Date.now()
 });
 
+export const requestStateFail = () => ({
+  type: 'RECEIVE_STATE_FAIL',
+  receivedAt: Date.now()
+});
+
 export const fetchState = () => {
   return dispatch => {
-    dispatch(requestState());
+    dispatch(requestStateSuccess());
 
     return fetch('/api/timer/getState')
       .then(
@@ -39,11 +44,12 @@ export const fetchState = () => {
       .then(json => {
         // object is empty
         if(!Object.keys(json).length) {
-          dispatch(receiveState(undefined));
+          dispatch(requestStateSuccess(undefined));
         } else {
-          dispatch(receiveState(json));
+          dispatch(requestStateSuccess(json));
         }
-      });
+      })
+      .catch(() => dispatch(requestStateFail()));
   };
 };
 
@@ -59,6 +65,7 @@ export const saveTimersStateFail = () => ({
   type: 'SAVE_TIMERS_STATE_FAIL'
 });
 
+/** Do not call this directly. Call from /api */
 export const saveTimersState = (data) => {
   return dispatch => {
     dispatch(saveTimersStateRequest());
