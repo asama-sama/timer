@@ -3,3 +3,7 @@
   color: #6f6f6f;
   padding-left: 10px;
 }
+
+.TimerDisplay-Delete {
+  cursor: pointer;
+}

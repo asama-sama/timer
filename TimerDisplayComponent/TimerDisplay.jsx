@@ -36,6 +36,7 @@ class TimerDisplay extends Component {
             name='close'
             color='red'
             onClick={() => this.setState({timeblockModalOpen: true})}
+            styleName='TimerDisplay-Delete'
           />}
         open={this.state.timeblockModalOpen}
       >
