@@ -4,6 +4,27 @@ import { createStore, applyMiddleware } from 'redux';
 import { createLogger } from 'redux-logger';
 import thunkMiddleware from 'redux-thunk';
 
+/** Returns name of active timer */
+const getActiveTimer = timers => {
+  return timers.map(t => {
+    let active = t.timeBlocks.map(tb => {
+      return !tb.end;
+    }).reduce((acc, next) => {
+      return acc || next;
+    }, false);
+    return {
+      name: t.name,
+      active
+    };
+  }).reduce((acc, next) => {
+    if(next.active) {
+      return next.name;
+    } else {
+      return acc;
+    }
+  }, '');
+};
+
 const timer = (
   state = {
     name: '',
@@ -13,6 +34,7 @@ const timer = (
 
   switch(action.type) {
   case 'START_TIMER':{
+    // end all running timers, on any timer
     let timeBlocks = state.timeBlocks.map(tb => {
       if(tb.end === undefined) {
         tb.end = moment().format();
@@ -20,13 +42,13 @@ const timer = (
       return tb;
     });
     let newState = {
-      ...state, ...timeBlocks
+      ...state, timeBlocks: [...timeBlocks]
     };
     if (state.name === action.name) {
       newState = {
         ...state,
         timeBlocks: [
-          ...newState.timeBlocks,
+          ...timeBlocks,
           {
             start: moment().format()
           }
@@ -42,10 +64,14 @@ const timer = (
         }
         return tb;
       });
-      return {...state, ...timeBlocks};
+      return {...state, timeBlocks};
     } else {
       return state;
     }
+  }
+  case 'DELETE_TIME_BLOCK': {
+    let timeBlocks = state.timeBlocks.filter((tb, idx) => idx !== action.index);
+    return {...state, timeBlocks};
   }
   default:
     return state;
@@ -108,21 +134,17 @@ const timers = (
   }
 
   case 'START_TIMER':
-  case 'STOP_TIMER':{
-    let timers = state.timersState.items.map(t => timer(t, action));
-    let activeTimer = action.name;
-    if(action.type === 'STOP_TIMER') {
-      activeTimer = '';
-    }
+  case 'STOP_TIMER':
+  case 'DELETE_TIME_BLOCK': {
+    let items = state.timersState.items.map(t => timer(t, action));
     return {
       ...state,
       timersState: {
-        items: timers,
-        activeTimer
+        items,
+        activeTimer: getActiveTimer(items) || ''
       }
     };
   }
-
   default:
     return state;
   }

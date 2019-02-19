@@ -15,10 +15,16 @@ class TimerDisplay extends Component {
       timeblockModalOpen: false
     };
     this.deleteTimeBlockConfirm = this.deleteTimeBlockConfirm.bind(this);
+    this.handleDeleteTimeblock = this.handleDeleteTimeblock.bind(this);
   }
 
   formatTime(time) {
     return moment(time).format('hh:mm:ss');
+  }
+
+  handleDeleteTimeblock() {
+    this.props.deleteTimeBlock();
+    this.setState({timeblockModalOpen: false});
   }
 
   deleteTimeBlockConfirm() {
@@ -45,7 +51,7 @@ class TimerDisplay extends Component {
             <Icon name='remove' /> No
           </Button>
           <Button color='green' inverted
-            onClick={()=> this.setState({timeblockModalOpen: false})}
+            onClick={()=> this.handleDeleteTimeblock()}
           >
             <Icon name='checkmark' /> Yes
           </Button>
@@ -69,8 +75,12 @@ class TimerDisplay extends Component {
   }
 }
 TimerDisplay.propTypes = {
-  start: PropTypes.string,
+  start: PropTypes.string.isRequired,
   end: PropTypes.string,
-  active: PropTypes.bool.isRequired
+  active: PropTypes.bool.isRequired,
+  deleteTimeBlock: PropTypes.func.isRequired,
+  index: PropTypes.number.isRequired,
+  name: PropTypes.string.isRequired,
+  refreshClock: PropTypes.bool.isRequired
 };
 export default TimerDisplay;

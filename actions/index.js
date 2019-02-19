@@ -18,6 +18,16 @@ export const stopTimer = name => ({
   name
 });
 
+/**
+ * @param  {[type]} name  name of timer
+ * @param  {[type]} index index of timeblock
+ */
+export const deleteTimeBlock = (name, index) => ({
+  type: 'DELETE_TIME_BLOCK',
+  name,
+  index
+});
+
 export const requestState = () => ({
   type: 'REQUEST_STATE'
 });
