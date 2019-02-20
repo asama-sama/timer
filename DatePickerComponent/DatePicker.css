@@ -8,3 +8,18 @@
 .DatePicker-Arrow {
   cursor: pointer;
 }
+
+.DatePicker-Text {
+  cursor: default;
+  user-select: none;
+}
+
+.DatePicker-Arrow-Left {
+  float: left;
+  padding-left: 40px;
+}
+
+.DatePicker-Arrow-Right {
+  float: right;
+  padding-right: 40px;
+}
