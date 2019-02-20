@@ -12,11 +12,17 @@ class DatePicker extends Component {
   render() {
     return (
       <div styleName='DatePicker'>
-        <Icon name='angle left' onClick={() => this.props.subtractDay()} />
+        <Icon 
+          name='angle left'
+          styleName='DatePicker-Arrow'
+          onClick={() => this.props.subtractDay()} />
         <span>
           {moment(this.props.date).format('ddd Do MMM YYYY')}
         </span>
-        <Icon name='angle right' onClick={() => this.props.addDay()} />
+        <Icon 
+          name='angle right' 
+          styleName='DatePicker-Arrow'
+          onClick={() => this.props.addDay()} />
       </div>);
   }
 }
