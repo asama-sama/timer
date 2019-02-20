@@ -2,10 +2,17 @@ import {connect} from 'react-redux';
 import Timer from '../TimerComponent/Timer';
 import {stopTimer, startTimer} from '../actions';
 import {saveTimersState} from '../api';
-
+import moment from 'moment';
 
 const mapStateToProps = (state, ownProps) => {
   let timer = state.timers.timersState.items.find(t => t.name === ownProps.name);
+  timer = {
+    ...timer,
+    timeBlocks: timer.timeBlocks.filter(tb => {
+      return moment(tb.start).isSame(moment(), 'day') ||
+      moment(tb.start).isSame(moment(), 'day');
+    })
+  };
   return {
     ...timer, 
     activeTimer: state.timers.timersState.activeTimer
