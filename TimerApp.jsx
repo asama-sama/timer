@@ -3,6 +3,7 @@ import TimerInputContainer from './containers/TimerInputContainer';
 import TimerContainer from './containers/TimerContainer';
 import PropTypes from 'prop-types';
 import DatePickerContainer from './containers/DatePickerContainer';
+import './TimerApp.css';
 
 class TimerApp extends Component {
   
@@ -20,16 +21,14 @@ class TimerApp extends Component {
 
   render() {
     return (
-      <div>
-        <div className="Categories">
-          <DatePickerContainer></DatePickerContainer>
-          {this.props.timers.timersState.items.map(timer => {
-            return (
-              <TimerContainer key={timer.name}
-                name={timer.name}
-              />);
-          })}
-        </div>
+      <div styleName='TimerApp'>
+        <DatePickerContainer></DatePickerContainer>
+        {this.props.timers.timersState.items.map(timer => {
+          return (
+            <TimerContainer key={timer.name}
+              name={timer.name}
+            />);
+        })}
         <TimerInputContainer/>
       </div>
     );

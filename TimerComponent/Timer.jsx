@@ -14,6 +14,7 @@ class Timer extends Component {
     this.sumTimers = this.sumTimers.bind(this);
     this.isStartTimerDisabled = this.isStartTimerDisabled.bind(this);
     this.isStopTimerDisabled = this.isStopTimerDisabled.bind(this);
+    this.isTimerActive = this.isTimerActive.bind(this);
   }
 
   tick() {
@@ -52,6 +53,10 @@ class Timer extends Component {
       || !moment().isSame(moment(this.props.date), 'day');
   }
 
+  isTimerActive() {
+    return this.isStartTimerDisabled() && !this.isStopTimerDisabled();
+  }
+
   componentDidMount() {
     this.timerID = setInterval(
       () => this.tick(), 1000
@@ -83,8 +88,13 @@ class Timer extends Component {
     return (
       <div styleName='Timer'>
         <div>
-          <span styleName='Timer-Text'>{name}</span>
-          <span styleName={this.isStartTimerDisabled() && !this.isStopTimerDisabled() ? 'Timer-Sumtime': ''}>{this.sumTimers()}</span>
+          <span 
+            styleName={this.isTimerActive() ? 'Timer-Text Timer-Text--active' : 'Timer-Text'}>
+            {name}
+          </span>
+          <span styleName={this.isTimerActive() ? 'Timer-Sumtime--active': ''}>
+            {this.sumTimers()}
+          </span>
           <div styleName='Timer-Buttons'>
             <Button.Group size='tiny' styleName=''>
               <Button

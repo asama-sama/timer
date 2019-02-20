@@ -3,11 +3,16 @@
 }
 
 .Timer-Text {
-  width: 100px;
+  width: 250px;
   display: inline-block;
+  margin-right: 20px;
 }
 
-.Timer-Sumtime {
+.Timer-Text--active {
+  color: #FFD700;
+}
+
+.Timer-Sumtime--active {
   font-weight: bold;
   color: #FFD700;
 }
