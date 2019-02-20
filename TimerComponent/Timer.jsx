@@ -101,16 +101,16 @@ class Timer extends Component {
         onMouseEnter={this.showHidetimerIcon}
         onMouseLeave={this.hideHidetimerIcon}
       >
+        {this.state.hideTimerIcon ?
+          <Icon 
+            name='hide' 
+            styleName='Timer-HideIcon'
+            onClick={() => this.props.hideTimer(name)}
+          /> : '' }
         <span 
           styleName={this.isTimerActive() ? 'Timer-Text Timer-Text--active' : 'Timer-Text'}
         >
           {name}
-          {this.state.hideTimerIcon ?
-            <Icon 
-              name='hide' 
-              styleName='Timer-HideIcon'
-              onClick={() => this.props.hideTimer(name)}
-            /> : '' }
         </span>
         <span styleName={this.isTimerActive() ? 'Timer-Sumtime--active': ''}>
           {this.sumTimers()}
