@@ -78,7 +78,6 @@ class TimeBlock extends Component {
 TimeBlock.propTypes = {
   start: PropTypes.string.isRequired,
   end: PropTypes.string,
-  active: PropTypes.bool.isRequired,
   deleteTimeBlock: PropTypes.func.isRequired,
   index: PropTypes.number.isRequired,
   name: PropTypes.string.isRequired,

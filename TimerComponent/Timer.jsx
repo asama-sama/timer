@@ -12,7 +12,8 @@ class Timer extends Component {
     this.state = {
       refreshClock: true};
     this.sumTimers = this.sumTimers.bind(this);
-    this.isTimerActive = this.isTimerActive.bind(this);
+    this.isStartTimerDisabled = this.isStartTimerDisabled.bind(this);
+    this.isStopTimerDisabled = this.isStopTimerDisabled.bind(this);
   }
 
   tick() {
@@ -41,8 +42,14 @@ class Timer extends Component {
     return this.formatTimeForSeconds(seconds);
   }
 
-  isTimerActive() {
-    return this.props.name===this.props.activeTimer;
+  isStartTimerDisabled() {
+    return this.props.name===this.props.activeTimer 
+      || !moment().isSame(moment(this.props.date), 'day');
+  }
+
+  isStopTimerDisabled() {
+    return this.props.name!==this.props.activeTimer 
+      || !moment().isSame(moment(this.props.date), 'day');
   }
 
   componentDidMount() {
@@ -64,7 +71,6 @@ class Timer extends Component {
           <TimeBlockContainer 
             key={idx}
             {...timer}
-            active={this.isTimerActive()}
             index={idx}
             name={name}
             refreshClock={this.state.refreshClock}
@@ -78,17 +84,17 @@ class Timer extends Component {
       <div styleName='Timer'>
         <div>
           <span styleName='Timer-Text'>{name}</span>
-          <span styleName={this.isTimerActive() ? 'Timer-Sumtime': ''}>{this.sumTimers()}</span>
+          <span styleName={this.isStartTimerDisabled() && !this.isStopTimerDisabled() ? 'Timer-Sumtime': ''}>{this.sumTimers()}</span>
           <div styleName='Timer-Buttons'>
             <Button.Group size='tiny' styleName=''>
               <Button
-                disabled={name === this.props.activeTimer}
+                disabled={this.isStartTimerDisabled()}
                 color='green' 
                 onClick={() => this.props.startTimer(name)}>
                   start
               </Button>
               <Button 
-                disabled={name !== this.props.activeTimer} 
+                disabled={this.isStopTimerDisabled()} 
                 color='red' 
                 onClick={()=>{
                   this.props.stopTimer(name);
@@ -109,5 +115,6 @@ Timer.propTypes = {
   startTimer: PropTypes.func.isRequired,
   stopTimer: PropTypes.func.isRequired,
   activeTimer: PropTypes.string.isRequired,
+  date: PropTypes.object.isRequired
 };
 export default Timer;

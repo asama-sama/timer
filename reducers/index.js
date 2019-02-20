@@ -5,27 +5,6 @@ import { createLogger } from 'redux-logger';
 import thunkMiddleware from 'redux-thunk';
 import uuid from 'uuid-random';
 
-/** Returns name of active timer */
-const getActiveTimer = timers => {
-  return timers.map(t => {
-    let active = t.timeBlocks.map(tb => {
-      return !tb.end;
-    }).reduce((acc, next) => {
-      return acc || next;
-    }, false);
-    return {
-      name: t.name,
-      active
-    };
-  }).reduce((acc, next) => {
-    if(next.active) {
-      return next.name;
-    } else {
-      return acc;
-    }
-  }, '');
-};
-
 const timer = (
   state = {
     name: '',
@@ -85,8 +64,7 @@ const timers = (
     isFetching: false,
     didInvalidate: false,
     timersState: {
-      items: [],
-      activeTimer: ''
+      items: []
     },
   }, action) => {
   switch(action.type) {
@@ -142,8 +120,7 @@ const timers = (
     return {
       ...state,
       timersState: {
-        items,
-        activeTimer: getActiveTimer(items) || ''
+        items
       }
     };
   }
