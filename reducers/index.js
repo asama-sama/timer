@@ -4,7 +4,7 @@ import { createStore, applyMiddleware } from 'redux';
 import { createLogger } from 'redux-logger';
 import thunkMiddleware from 'redux-thunk';
 import uuid from 'uuid-random';
-import {isTimerActive} from '../utils';
+import {isTimerActiveForDate} from '../utils';
 
 const timer = (
   state = {
@@ -53,7 +53,7 @@ const timer = (
     }
   }
   case 'HIDE_TIMER':{
-    let timerActive = isTimerActive(state);
+    let timerActive = isTimerActiveForDate(state, action.date);
     let visibleDates =
       state.visibleDates.filter(d => {
         return !moment(d).isSame(
@@ -135,7 +135,7 @@ const timers = (
               name: newTimerInput,
               timeBlocks: [],
               id: uuid(),
-              visibleDates: [moment()._d]
+              visibleDates: [moment().startOf('day')._d]
             }]
         }
       };

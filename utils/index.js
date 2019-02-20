@@ -17,11 +17,17 @@ export const getActiveTimer = timers => {
 };
 
 export const isTimerActive = timer => (
-  timer.timeBlocks.map(tb => {
-    return !tb.end;
-  }).reduce((acc, next) => {
-    return acc || next;
-  }, false)
+  timer.timeBlocks.map(tb => !tb.end)
+    .reduce((acc, next) => acc || next, false)
+);
+
+export const isTimerActiveForDate = (timer, date) => (
+  timer.timeBlocks.map(tb => (
+    !tb.end && (
+      moment().isSame(moment(date), 'day') ||
+      moment(tb.start).isSame(moment(date), 'day')
+    )
+  )).reduce((acc, next) => acc||next, false)
 );
 
 // return true if timer is visible for a given day
