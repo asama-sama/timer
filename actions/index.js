@@ -29,12 +29,12 @@ export const unhideTimers = () => ({
 
 /**
  * @param  {[type]} name  name of timer
- * @param  {[type]} index index of timeblock
+ * @param  {[type]} id id of timeblock
  */
-export const deleteTimeBlock = (name, index) => ({
+export const deleteTimeBlock = (name, id) => ({
   type: 'DELETE_TIME_BLOCK',
   name,
-  index
+  id
 });
 
 export const requestState = () => ({

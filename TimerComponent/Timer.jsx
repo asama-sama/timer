@@ -83,12 +83,11 @@ class Timer extends Component {
     let name = this.props.name;
     let timeBlocks;
     if(this.props.timeBlocks !== undefined) {
-      timeBlocks = <div>{this.props.timeBlocks.map( (timer, idx) => {
+      timeBlocks = <div>{this.props.timeBlocks.map( (tb, idx) => {
         return (
           <TimeBlockContainer 
             key={idx}
-            {...timer}
-            index={idx}
+            {...tb}
             name={name}
             refreshClock={this.state.refreshClock}
           ></TimeBlockContainer>

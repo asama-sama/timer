@@ -62,7 +62,7 @@ const timer = (
   case 'UNHIDE_TIMERS':
     return {...state, hide: false};
   case 'DELETE_TIME_BLOCK': {
-    let timeBlocks = state.timeBlocks.filter((tb, idx) => idx !== action.index);
+    let timeBlocks = state.timeBlocks.filter(tb => tb.id !== action.id);
     return {...state, timeBlocks};
   }
   default:

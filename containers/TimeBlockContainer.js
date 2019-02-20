@@ -7,7 +7,7 @@ const mapStateToProps = () => ({});
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
   deleteTimeBlock: () =>{ 
-    dispatch(deleteTimeBlock(ownProps.name, ownProps.index));
+    dispatch(deleteTimeBlock(ownProps.name, ownProps.id));
     saveTimersState(dispatch);
   }});
 
