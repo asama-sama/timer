@@ -1,29 +1,10 @@
 import {connect} from 'react-redux';
 import Timer from '../TimerComponent/Timer';
-import {stopTimer, startTimer} from '../actions';
+import {stopTimer, startTimer, hideTimer} from '../actions';
 import {saveTimersState} from '../api';
 import moment from 'moment';
+import {getActiveTimer} from '../utils';
 
-/** Returns name of active timer */
-const getActiveTimer = timers => {
-  return timers.map(t => {
-    let active = t.timeBlocks.map(tb => {
-      return !tb.end;
-    }).reduce((acc, next) => {
-      return acc || next;
-    }, false);
-    return {
-      name: t.name,
-      active
-    };
-  }).reduce((acc, next) => {
-    if(next.active) {
-      return next.name;
-    } else {
-      return acc;
-    }
-  }, '');
-};
 
 const mapStateToProps = (state, ownProps) => {
   let timer = state.timers.timersState.items.find(t => t.name === ownProps.name);
@@ -50,6 +31,9 @@ const mapDispatchToProps = dispatch => ({
   startTimer: name => {
     dispatch(startTimer(name));
     saveTimersState(dispatch);
+  },
+  hideTimer: name => {
+    dispatch(hideTimer(name));
   }
 });
 

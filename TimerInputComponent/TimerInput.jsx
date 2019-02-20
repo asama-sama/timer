@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import {Icon} from 'semantic-ui-react';
 
 class TimerInput extends Component {
 
@@ -31,10 +32,12 @@ class TimerInput extends Component {
           onChange={e => this.updateNewTimerInput(e.target.value)}
           onKeyPress={e => this.onEnterAddTimer(addTimer, e)}
         />
+        <Icon name='unhide' onClick={this.props.unhideTimers}/>
       </div>);
   }
 }
 TimerInput.propTypes = {
-  addTimer: PropTypes.func.isRequired
+  addTimer: PropTypes.func.isRequired,
+  unhideTimers: PropTypes.func.isRequired
 };
 export default TimerInput;

@@ -18,6 +18,15 @@ export const stopTimer = name => ({
   name
 });
 
+export const hideTimer = name => ({
+  type: 'HIDE_TIMER',
+  name
+});
+
+export const unhideTimers = () => ({
+  type: 'UNHIDE_TIMERS'
+});
+
 /**
  * @param  {[type]} name  name of timer
  * @param  {[type]} index index of timeblock

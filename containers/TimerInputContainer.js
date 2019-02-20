@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { addTimer } from '../actions';
+import { addTimer, unhideTimers } from '../actions';
 import { saveTimersState } from '../api';
 import TimerInput from '../TimerInputComponent/TimerInput';
 
@@ -10,7 +10,8 @@ const mapDispatchToProps = (dispatch) => {
     addTimer: name => {
       dispatch(addTimer(name));
       saveTimersState(dispatch);
-    }
+    },
+    unhideTimers: () => dispatch(unhideTimers())
   };
 };
 

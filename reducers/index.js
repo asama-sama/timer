@@ -4,6 +4,7 @@ import { createStore, applyMiddleware } from 'redux';
 import { createLogger } from 'redux-logger';
 import thunkMiddleware from 'redux-thunk';
 import uuid from 'uuid-random';
+import {isTimerActive} from '../utils';
 
 const timer = (
   state = {
@@ -50,6 +51,16 @@ const timer = (
       return state;
     }
   }
+  case 'HIDE_TIMER':{
+    let timerActive = isTimerActive(state);
+    if(action.name === state.name && !timerActive) {
+      return {...state, hide: true};
+    } else {
+      return state;
+    }
+  }
+  case 'UNHIDE_TIMERS':
+    return {...state, hide: false};
   case 'DELETE_TIME_BLOCK': {
     let timeBlocks = state.timeBlocks.filter((tb, idx) => idx !== action.index);
     return {...state, timeBlocks};
@@ -115,6 +126,8 @@ const timers = (
 
   case 'START_TIMER':
   case 'STOP_TIMER':
+  case 'HIDE_TIMER':
+  case 'UNHIDE_TIMERS':
   case 'DELETE_TIME_BLOCK': {
     let items = state.timersState.items.map(t => timer(t, action));
     return {

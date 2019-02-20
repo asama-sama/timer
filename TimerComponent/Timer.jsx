@@ -107,7 +107,11 @@ class Timer extends Component {
         >
           {name}
           {this.state.hideTimerIcon ?
-            <Icon name='hide' styleName='Timer-HideIcon' /> : '' }
+            <Icon 
+              name='hide' 
+              styleName='Timer-HideIcon'
+              onClick={() => this.props.hideTimer(name)}
+            /> : '' }
         </span>
         <span styleName={this.isTimerActive() ? 'Timer-Sumtime--active': ''}>
           {this.sumTimers()}
@@ -141,6 +145,7 @@ Timer.propTypes = {
   startTimer: PropTypes.func.isRequired,
   stopTimer: PropTypes.func.isRequired,
   activeTimer: PropTypes.string.isRequired,
-  date: PropTypes.object.isRequired
+  date: PropTypes.object.isRequired,
+  hideTimer: PropTypes.func.isRequired
 };
 export default Timer;
