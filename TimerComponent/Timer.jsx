@@ -80,7 +80,9 @@ class Timer extends Component {
   }
 
   render() {
+    let id = this.props.id;
     let name = this.props.name;
+    let date = this.props.date;
     let timeBlocks;
     if(this.props.timeBlocks !== undefined) {
       timeBlocks = <div>{this.props.timeBlocks.map( (tb, idx) => {
@@ -88,7 +90,6 @@ class Timer extends Component {
           <TimeBlockContainer 
             key={idx}
             {...tb}
-            name={name}
             refreshClock={this.state.refreshClock}
           ></TimeBlockContainer>
         );
@@ -105,7 +106,7 @@ class Timer extends Component {
           <Icon 
             name='hide' 
             styleName='Timer-HideIcon'
-            onClick={() => this.props.hideTimer(name)}
+            onClick={() => this.props.hideTimer(id, date)}
           /> : '' }
         <span 
           styleName={this.isTimerActive() ? 'Timer-Text Timer-Text--active' : 'Timer-Text'}
@@ -120,14 +121,14 @@ class Timer extends Component {
             <Button
               disabled={this.isStartTimerDisabled()}
               color='green' 
-              onClick={() => this.props.startTimer(name)}>
+              onClick={() => this.props.startTimer(id)}>
                 start
             </Button>
             <Button 
               disabled={this.isStopTimerDisabled()} 
               color='red' 
               onClick={()=>{
-                this.props.stopTimer(name);
+                this.props.stopTimer(id);
               }}>
               stop
             </Button>
@@ -139,6 +140,7 @@ class Timer extends Component {
   }
 }
 Timer.propTypes = {
+  id: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   timeBlocks: PropTypes.array,
   startTimer: PropTypes.func.isRequired,

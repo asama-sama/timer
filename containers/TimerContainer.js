@@ -12,7 +12,7 @@ const mapStateToProps = (state, ownProps) => {
     ...timer,
     timeBlocks: timer.timeBlocks.filter(tb => {
       return moment(tb.start).isSame(moment(state.date), 'day') ||
-      moment(tb.start).isSame(moment(state.date), 'day');
+      moment(tb.end).isSame(moment(state.date), 'day');
     })
   };
   let activeTimer = getActiveTimer(state.timers.timersState.items);
@@ -24,16 +24,16 @@ const mapStateToProps = (state, ownProps) => {
 };
 
 const mapDispatchToProps = dispatch => ({
-  stopTimer: name => {
-    dispatch(stopTimer(name));
+  stopTimer: id => {
+    dispatch(stopTimer(id));
     saveTimersState(dispatch);
   },
-  startTimer: name => {
-    dispatch(startTimer(name));
+  startTimer: id => {
+    dispatch(startTimer(id));
     saveTimersState(dispatch);
   },
-  hideTimer: name => {
-    dispatch(hideTimer(name));
+  hideTimer: (id, date) => {
+    dispatch(hideTimer(id, date));
   }
 });
 

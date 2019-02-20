@@ -1,3 +1,5 @@
+import moment from 'moment';
+
 /** Returns name of active timer */
 export const getActiveTimer = timers => {
   return timers.map(t => {
@@ -20,4 +22,12 @@ export const isTimerActive = timer => (
   }).reduce((acc, next) => {
     return acc || next;
   }, false)
+);
+
+// return true if timer is visible for a given day
+export const isTimerVisibleForDate = (timer, date) => (
+  timer.visibleDates
+    .map(d =>(
+      moment(d).isSame(moment(date), 'day')))
+    .reduce((acc, next) => acc || next, false)
 );

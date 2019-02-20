@@ -9,7 +9,8 @@ import {isTimerActive} from '../utils';
 const timer = (
   state = {
     name: '',
-    timeBlocks: []
+    timeBlocks: [],
+    visibleDates: []
   },
   action) => {
 
@@ -25,7 +26,7 @@ const timer = (
     let newState = {
       ...state, timeBlocks: [...timeBlocks]
     };
-    if (state.name === action.name) {
+    if (state.id === action.id) {
       newState = {
         ...state,
         timeBlocks: [
@@ -39,7 +40,7 @@ const timer = (
     return newState;
   }
   case 'STOP_TIMER':{
-    if(state.name === action.name) {
+    if(state.id === action.id) {
       let timeBlocks = state.timeBlocks.map(tb => {
         if(tb.end === undefined) {
           tb.end = moment().format();
@@ -53,22 +54,31 @@ const timer = (
   }
   case 'HIDE_TIMER':{
     let timerActive = isTimerActive(state);
-    if(action.name === state.name && !timerActive) {
-      return {...state, hide: true};
+    let visibleDates =
+      state.visibleDates.filter(d => {
+        return !moment(d).isSame(
+          moment(action.date), 'day');
+      });
+    if(action.id === state.id && !timerActive) {
+      return {...state, visibleDates};
     } else {
       return state;
     }
   }
   case 'UNHIDE_TIMER':
-    if(action.name===state.name) {
-      return {...state, hide: false};
+    if(action.id===state.id) {
+      let visibleDates = [
+        ...state.visibleDates,
+        moment(action.date).startOf('day')._d
+      ];
+      return {...state, visibleDates};
     } else {
       return state;
     }
   case 'UNHIDE_TIMERS':
     return {...state, hide: false};
   case 'DELETE_TIME_BLOCK': {
-    let timeBlocks = state.timeBlocks.filter(tb => tb.id !== action.id);
+    let timeBlocks = state.timeBlocks.filter(tb => tb.id !== action.timeBlockId);
     return {...state, timeBlocks};
   }
   default:
@@ -123,7 +133,9 @@ const timers = (
             ...state.timersState.items,
             {
               name: newTimerInput,
-              timeBlocks: []
+              timeBlocks: [],
+              id: uuid(),
+              visibleDates: [moment()._d]
             }]
         }
       };

@@ -79,7 +79,6 @@ TimeBlock.propTypes = {
   start: PropTypes.string.isRequired,
   end: PropTypes.string,
   deleteTimeBlock: PropTypes.func.isRequired,
-  name: PropTypes.string.isRequired,
   refreshClock: PropTypes.bool.isRequired,
   id: PropTypes.string.isRequired
 };

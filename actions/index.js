@@ -3,43 +3,40 @@ export const addTimer = name => ({
   name
 });
 
-export const updateActiveTimer = name => ({
+export const updateActiveTimer = id => ({
   type: 'ACTIVE_TIMER',
-  name
+  id
 });
 
-export const startTimer = name => ({
+export const startTimer = id => ({
   type: 'START_TIMER',
-  name
+  id
 });
 
-export const stopTimer = name => ({
+export const stopTimer = id => ({
   type: 'STOP_TIMER',
-  name
+  id
 });
 
-export const hideTimer = name => ({
+export const hideTimer = (id, date) => ({
   type: 'HIDE_TIMER',
-  name
+  id,
+  date
 });
 
 export const unhideTimers = () => ({
   type: 'UNHIDE_TIMERS'
 });
 
-export const unhideTimer = name => ({
+export const unhideTimer = (id, date) => ({
   type: 'UNHIDE_TIMER',
-  name
+  id,
+  date
 });
 
-/**
- * @param  {[type]} name  name of timer
- * @param  {[type]} id id of timeblock
- */
-export const deleteTimeBlock = (name, id) => ({
+export const deleteTimeBlock = timeBlockId => ({
   type: 'DELETE_TIME_BLOCK',
-  name,
-  id
+  timeBlockId
 });
 
 export const requestState = () => ({

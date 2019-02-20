@@ -16,7 +16,7 @@ class TimerList extends Component {
             <Icon 
               name='unhide'
               styleName='TimerList-Unhide' 
-              onClick={()=>this.props.unhideTimer(timer.name)}
+              onClick={()=>this.props.unhideTimer(timer.id, this.props.date)}
             />
             <span>{timer.name}</span>
           </div>)}
@@ -26,6 +26,7 @@ class TimerList extends Component {
 }
 TimerList.propTypes = {
   timers: PropTypes.array.isRequired,
-  unhideTimer: PropTypes.func.isRequired
+  unhideTimer: PropTypes.func.isRequired,
+  date: PropTypes.object.isRequired
 };
 export default TimerList;
