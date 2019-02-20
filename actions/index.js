@@ -27,6 +27,11 @@ export const unhideTimers = () => ({
   type: 'UNHIDE_TIMERS'
 });
 
+export const unhideTimer = name => ({
+  type: 'UNHIDE_TIMER',
+  name
+});
+
 /**
  * @param  {[type]} name  name of timer
  * @param  {[type]} id id of timeblock

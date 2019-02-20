@@ -3,6 +3,7 @@ import TimerInputContainer from './containers/TimerInputContainer';
 import TimerContainer from './containers/TimerContainer';
 import PropTypes from 'prop-types';
 import DatePickerContainer from './containers/DatePickerContainer';
+import TimerListContainer from './containers/TimerListContainer';
 import './TimerApp.css';
 
 class TimerApp extends Component {
@@ -30,6 +31,7 @@ class TimerApp extends Component {
             />);
         })}
         <TimerInputContainer/>
+        <TimerListContainer />
       </div>
     );
   }

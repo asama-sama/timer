@@ -59,6 +59,12 @@ const timer = (
       return state;
     }
   }
+  case 'UNHIDE_TIMER':
+    if(action.name===state.name) {
+      return {...state, hide: false};
+    } else {
+      return state;
+    }
   case 'UNHIDE_TIMERS':
     return {...state, hide: false};
   case 'DELETE_TIME_BLOCK': {
@@ -127,6 +133,7 @@ const timers = (
   case 'START_TIMER':
   case 'STOP_TIMER':
   case 'HIDE_TIMER':
+  case 'UNHIDE_TIMER':
   case 'UNHIDE_TIMERS':
   case 'DELETE_TIME_BLOCK': {
     let items = state.timersState.items.map(t => timer(t, action));
