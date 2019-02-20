@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import moment from 'moment';
-import { Button } from 'semantic-ui-react';
+import { Button, Icon } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 import TimeBlockContainer from '../containers/TimeBlockContainer';
 import './Timer.css';
@@ -10,11 +10,15 @@ class Timer extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      refreshClock: true};
+      refreshClock: true,
+      hideTimerIcon: false
+    };
     this.sumTimers = this.sumTimers.bind(this);
     this.isStartTimerDisabled = this.isStartTimerDisabled.bind(this);
     this.isStopTimerDisabled = this.isStopTimerDisabled.bind(this);
     this.isTimerActive = this.isTimerActive.bind(this);
+    this.showHidetimerIcon = this.showHidetimerIcon.bind(this);
+    this.hideHidetimerIcon = this.hideHidetimerIcon.bind(this);
   }
 
   tick() {
@@ -57,6 +61,14 @@ class Timer extends Component {
     return this.isStartTimerDisabled() && !this.isStopTimerDisabled();
   }
 
+  showHidetimerIcon() {
+    this.setState({hideTimerIcon: true});
+  }
+
+  hideHidetimerIcon() {
+    this.setState({hideTimerIcon: false});
+  }
+
   componentDidMount() {
     this.timerID = setInterval(
       () => this.tick(), 1000
@@ -86,33 +98,37 @@ class Timer extends Component {
       timeBlocks = <div />;
     }
     return (
-      <div styleName='Timer'>
-        <div>
-          <span 
-            styleName={this.isTimerActive() ? 'Timer-Text Timer-Text--active' : 'Timer-Text'}>
-            {name}
-          </span>
-          <span styleName={this.isTimerActive() ? 'Timer-Sumtime--active': ''}>
-            {this.sumTimers()}
-          </span>
-          <div styleName='Timer-Buttons'>
-            <Button.Group size='tiny' styleName=''>
-              <Button
-                disabled={this.isStartTimerDisabled()}
-                color='green' 
-                onClick={() => this.props.startTimer(name)}>
-                  start
-              </Button>
-              <Button 
-                disabled={this.isStopTimerDisabled()} 
-                color='red' 
-                onClick={()=>{
-                  this.props.stopTimer(name);
-                }}>
-                stop
-              </Button>
-            </Button.Group>
-          </div>
+      <div styleName='Timer'
+        onMouseEnter={this.showHidetimerIcon}
+        onMouseLeave={this.hideHidetimerIcon}
+      >
+        <span 
+          styleName={this.isTimerActive() ? 'Timer-Text Timer-Text--active' : 'Timer-Text'}
+        >
+          {name}
+          {this.state.hideTimerIcon ?
+            <Icon name='hide' styleName='Timer-HideIcon' /> : '' }
+        </span>
+        <span styleName={this.isTimerActive() ? 'Timer-Sumtime--active': ''}>
+          {this.sumTimers()}
+        </span>
+        <div styleName='Timer-Buttons'>
+          <Button.Group size='tiny' styleName=''>
+            <Button
+              disabled={this.isStartTimerDisabled()}
+              color='green' 
+              onClick={() => this.props.startTimer(name)}>
+                start
+            </Button>
+            <Button 
+              disabled={this.isStopTimerDisabled()} 
+              color='red' 
+              onClick={()=>{
+                this.props.stopTimer(name);
+              }}>
+              stop
+            </Button>
+          </Button.Group>
         </div>
         {timeBlocks}
       </div>

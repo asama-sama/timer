@@ -1,5 +1,7 @@
 .Timer {
   margin-bottom: 10px;
+  position: relative;
+  padding-left: 20px;
 }
 
 .Timer-Text {
@@ -20,4 +22,10 @@
 .Timer-Buttons {
   margin-left: 10px;
   display: inline-block;
+}
+
+.Timer-HideIcon {
+  position: absolute;
+  left: 0;
+  cursor: pointer;
 }

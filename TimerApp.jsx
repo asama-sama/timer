@@ -23,7 +23,7 @@ class TimerApp extends Component {
     return (
       <div styleName='TimerApp'>
         <DatePickerContainer></DatePickerContainer>
-        {this.props.timers.timersState.items.map(timer => {
+        {this.props.timers.map(timer => {
           return (
             <TimerContainer key={timer.name}
               name={timer.name}
@@ -35,7 +35,7 @@ class TimerApp extends Component {
   }
 }
 TimerApp.propTypes = {
-  timers: PropTypes.any.isRequired,
+  timers: PropTypes.array.isRequired,
   fetchState: PropTypes.func.isRequired
 };
 export default TimerApp;

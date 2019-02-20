@@ -3,7 +3,9 @@ import TimerApp from '../TimerApp';
 import { fetchState } from '../actions';
 
 const mapStateToProps = state => {
-  return state;
+  return {
+    timers: state.timers.timersState.items.filter(timer => !timer.hide)
+  };
 };
 
 const mapDispatchToProps = dispatch => ({
