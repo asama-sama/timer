@@ -96,3 +96,11 @@ export const saveTimersState = (data) => {
       });
   };
 };
+
+export const subtractDay = () => ({
+  type: 'DAY_BACK'
+});
+
+export const addDay = () => ({
+  type: 'DAY_FORWARD'
+});

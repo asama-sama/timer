@@ -152,8 +152,23 @@ const timers = (
   }
 };
 
+const date = (
+  state = moment().startOf('day')._d, 
+  action) => {
+  let date = moment(state);
+  switch(action.type){
+  case 'DAY_FORWARD':
+    return moment(date).add(1, 'd')._d;
+  case 'DAY_BACK':
+    return moment(date).subtract(1, 'd')._d;
+  default:
+    return state;
+  }
+};
+
 const rootReducer = combineReducers({
-  timers
+  timers,
+  date
 });
 
 const loggerMiddleware = createLogger();
