@@ -9,8 +9,8 @@ const mapStateToProps = (state, ownProps) => {
   timer = {
     ...timer,
     timeBlocks: timer.timeBlocks.filter(tb => {
-      return moment(tb.start).isSame(moment(), 'day') ||
-      moment(tb.start).isSame(moment(), 'day');
+      return moment(tb.start).isSame(moment(state.date), 'day') ||
+      moment(tb.start).isSame(moment(state.date), 'day');
     })
   };
   return {
