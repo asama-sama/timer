@@ -3,6 +3,7 @@ import {combineReducers} from 'redux';
 import { createStore, applyMiddleware } from 'redux';
 import { createLogger } from 'redux-logger';
 import thunkMiddleware from 'redux-thunk';
+import uuid from 'uuid-random';
 
 /** Returns name of active timer */
 const getActiveTimer = timers => {
@@ -50,6 +51,7 @@ const timer = (
         timeBlocks: [
           ...timeBlocks,
           {
+            id: uuid(),
             start: moment().format()
           }
         ]};

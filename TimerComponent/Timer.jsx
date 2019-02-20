@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import moment from 'moment';
 import { Button } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
-import TimerDisplayContainer from '../containers/TimerDisplayContainer';
+import TimeBlockContainer from '../containers/TimeBlockContainer';
 import './Timer.css';
 
 class Timer extends Component {
@@ -61,14 +61,14 @@ class Timer extends Component {
     if(this.props.timeBlocks !== undefined) {
       timeBlocks = <div>{this.props.timeBlocks.map( (timer, idx) => {
         return (
-          <TimerDisplayContainer 
+          <TimeBlockContainer 
             key={idx}
             {...timer}
             active={this.isTimerActive()}
             index={idx}
             name={name}
             refreshClock={this.state.refreshClock}
-          ></TimerDisplayContainer>
+          ></TimeBlockContainer>
         );
       })}</div>;
     } else {

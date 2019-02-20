@@ -1,9 +1,9 @@
-.TimerDisplay {
+.TimerBlock {
   font-size: 12px;
   color: #6f6f6f;
   padding-left: 10px;
 }
 
-.TimerDisplay-Delete {
+.TimerBlock-Delete {
   cursor: pointer;
 }

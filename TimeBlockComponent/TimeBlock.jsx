@@ -2,9 +2,9 @@ import React, {Component} from 'react';
 import moment from 'moment';
 import PropTypes from 'prop-types';
 import { Icon, Button, Header, Modal } from 'semantic-ui-react';
-import './TimerDisplay.css';
+import './TimeBlock.css';
 
-class TimerDisplay extends Component {
+class TimeBlock extends Component {
 
   constructor(props) {
     super(props);
@@ -19,7 +19,7 @@ class TimerDisplay extends Component {
   }
 
   formatTime(time) {
-    return moment(time).format('hh:mm:ss');
+    return moment(time).format('hh:mm:ss D MMM');
   }
 
   handleDeleteTimeblock() {
@@ -36,7 +36,7 @@ class TimerDisplay extends Component {
             name='close'
             color='red'
             onClick={() => this.setState({timeblockModalOpen: true})}
-            styleName='TimerDisplay-Delete'
+            styleName='TimeBlock-Delete'
           />}
         open={this.state.timeblockModalOpen}
       >
@@ -63,7 +63,7 @@ class TimerDisplay extends Component {
 
   render() {
     return(
-      <div styleName='TimerDisplay'
+      <div styleName='TimeBlock'
         onMouseEnter={() => this.setState({showDelete: true})}
         onMouseLeave={() => this.setState({showDelete: false})}
       >
@@ -75,7 +75,7 @@ class TimerDisplay extends Component {
     );
   }
 }
-TimerDisplay.propTypes = {
+TimeBlock.propTypes = {
   start: PropTypes.string.isRequired,
   end: PropTypes.string,
   active: PropTypes.bool.isRequired,
@@ -84,4 +84,4 @@ TimerDisplay.propTypes = {
   name: PropTypes.string.isRequired,
   refreshClock: PropTypes.bool.isRequired
 };
-export default TimerDisplay;
+export default TimeBlock;

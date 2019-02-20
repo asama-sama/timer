@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import TimerInputContainer from './containers/TimerInputContainer';
 import TimerContainer from './containers/TimerContainer';
 import PropTypes from 'prop-types';
+import DatePicker from './DatePickerComponent/DatePicker';
 
 class TimerApp extends Component {
   
@@ -21,6 +22,7 @@ class TimerApp extends Component {
     return (
       <div>
         <div className="Categories">
+          <DatePicker></DatePicker>
           {this.props.timers.timersState.items.map(timer => {
             return (
               <TimerContainer key={timer.name}
