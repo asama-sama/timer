@@ -1,19 +1,15 @@
 import React, {Component} from 'react';
-import TimerInputContainer from './containers/TimerInputContainer';
 import TimerContainer from './containers/TimerContainer';
 import PropTypes from 'prop-types';
 import DatePickerContainer from './containers/DatePickerContainer';
-import TimerListContainer from './containers/TimerListContainer';
+import TimerFilterListContainer from './containers/TimerFilterListContainer';
 import './TimerApp.css';
 
 class TimerApp extends Component {
   
   constructor(props) {
     super(props);
-  }
-
-  updateNewTimer(e) {
-    this.setState({newTimer: e.target.value});
+    this.state = {timerInput: ''};
   }
 
   componentDidMount() {
@@ -30,8 +26,7 @@ class TimerApp extends Component {
               name={timer.name}
             />);
         })}
-        <TimerInputContainer/>
-        <TimerListContainer />
+        <TimerFilterListContainer />
       </div>
     );
   }

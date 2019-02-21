@@ -3,10 +3,11 @@ import TimerList from '../TimerListComponent/TimerList';
 import {unhideTimer} from '../actions';
 import { isTimerVisibleForDate } from '../utils';
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state, ownProps) => ({
+  date: state.date,
   timers: state.timers.timersState.items
-    .filter(t => !isTimerVisibleForDate(t, state.date)),
-  date: state.date
+    .filter(timer => timer.name.includes(ownProps.filter))
+    .filter(t => !isTimerVisibleForDate(t, state.date))
 });
 
 const mapDispatchToProps = dispatch => ({
