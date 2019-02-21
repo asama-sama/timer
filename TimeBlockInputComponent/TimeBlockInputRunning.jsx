@@ -25,7 +25,7 @@ class TimeBlockInputRunning extends Component {
 
   render() {
     return (
-      <span styleName='TimeBlockInput'>
+      <span styleName='TimeBlockInput TimeBlockInput-Display'>
         {moment().format(getTimeFormat(true))}
       </span>);
   }

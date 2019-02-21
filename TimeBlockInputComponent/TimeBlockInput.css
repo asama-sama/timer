@@ -7,3 +7,7 @@
   border: none;
   width: 50px;
 }
+
+.TimeBlockInput-Display {
+  cursor: pointer;
+}

@@ -103,6 +103,7 @@ class TimeBlockInput extends Component {
           :
           <span
             onClick={this.enableTimeModify}
+            styleName='TimeBlockInput-Display'
           >
             {this.formatTime(this.state.time)}
           </span>
