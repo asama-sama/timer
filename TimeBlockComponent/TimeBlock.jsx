@@ -1,25 +1,19 @@
 import React, {Component} from 'react';
-import moment from 'moment';
 import PropTypes from 'prop-types';
 import { Icon, Button, Header, Modal } from 'semantic-ui-react';
+import TimeBlockInput from '../TimeBlockInputComponent/TimeBlockInput';
 import './TimeBlock.css';
 
 class TimeBlock extends Component {
 
   constructor(props) {
     super(props);
-    this.state = {refreshClock: true};
-    this.formatTime = this.formatTime.bind(this);
     this.state = {
       showDelete: false,
       timeblockModalOpen: false
     };
     this.deleteTimeBlockConfirm = this.deleteTimeBlockConfirm.bind(this);
     this.handleDeleteTimeblock = this.handleDeleteTimeblock.bind(this);
-  }
-
-  formatTime(time) {
-    return moment(time).format('hh:mm:ss D MMM');
   }
 
   handleDeleteTimeblock() {
@@ -67,8 +61,22 @@ class TimeBlock extends Component {
         onMouseEnter={() => this.setState({showDelete: true})}
         onMouseLeave={() => this.setState({showDelete: false})}
       >
-        <span>{this.formatTime(this.props.start)} </span>-
-        <span> {this.formatTime(this.props.end)}</span>
+        <TimeBlockInput
+          id={this.props.id} 
+          input={this.props.start}
+          updateTimeBlock={newTime => 
+            this.props.updateTimeBlockStart(
+              this.props.id,
+              newTime,
+              this.props.start, 
+              this.props.end)}
+        />
+        -
+        <TimeBlockInput 
+          id={this.props.id} 
+          input={this.props.end} 
+          updateTimeBlock={this.props.updateTimeBlockEnd}
+        />
         {this.state.showDelete ?
           this.deleteTimeBlockConfirm() : undefined }
       </div>
@@ -79,7 +87,8 @@ TimeBlock.propTypes = {
   start: PropTypes.string.isRequired,
   end: PropTypes.string,
   deleteTimeBlock: PropTypes.func.isRequired,
-  refreshClock: PropTypes.bool.isRequired,
-  id: PropTypes.string.isRequired
+  id: PropTypes.string.isRequired,
+  updateTimeBlockStart: PropTypes.func.isRequired,
+  updateTimeBlockEnd: PropTypes.func.isRequired
 };
 export default TimeBlock;

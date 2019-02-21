@@ -81,6 +81,24 @@ const timer = (
     let timeBlocks = state.timeBlocks.filter(tb => tb.id !== action.timeBlockId);
     return {...state, timeBlocks};
   }
+  case 'UPDATE_TIME_BLOCK_START':
+    return {
+      ...state,
+      timeBlocks:
+        state.timeBlocks.map(tb => {
+          if(tb.id === action.id) {
+            return {
+              ...tb,
+              start: action.time
+            };
+          }
+          return tb;
+        })
+    };
+  case 'UPDATE_TIME_BLOCK_END': {
+    console.log(action.id, action.time);
+    return state;
+  }
   default:
     return state;
   }
@@ -147,7 +165,9 @@ const timers = (
   case 'HIDE_TIMER':
   case 'UNHIDE_TIMER':
   case 'UNHIDE_TIMERS':
-  case 'DELETE_TIME_BLOCK': {
+  case 'DELETE_TIME_BLOCK':
+  case 'UPDATE_TIME_BLOCK_START':
+  case 'UPDATE_TIME_BLOCK_END': {
     let items = state.timersState.items.map(t => timer(t, action));
     return {
       ...state,

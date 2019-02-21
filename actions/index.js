@@ -39,6 +39,18 @@ export const deleteTimeBlock = timeBlockId => ({
   timeBlockId
 });
 
+export const updateTimeBlockStart = (id, time) => ({
+  type: 'UPDATE_TIME_BLOCK_START',
+  id,
+  time
+});
+
+export const updateTimeBlockEnd = (id, time) => ({
+  type: 'UPDATE_TIME_BLOCK_END',
+  id,
+  time
+});
+
 export const requestState = () => ({
   type: 'REQUEST_STATE'
 });
