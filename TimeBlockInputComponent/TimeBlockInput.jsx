@@ -12,6 +12,7 @@ class TimeBlockInput extends Component {
     this.onTimeInputChange = this.onTimeInputChange.bind(this);
     this.getTimeFormat = this.getTimeFormat.bind(this);
     this.resetInput = this.resetInput.bind(this);
+    this.enableTimeModify = this.enableTimeModify.bind(this);
 
     this.state = {
       time: this.props.input,
@@ -66,6 +67,13 @@ class TimeBlockInput extends Component {
     }
   }
 
+  // do not allow currently running timers to be modified
+  enableTimeModify() {
+    if(this.state.time) {
+      this.setState({modify: true});
+    }
+  }
+
   getTimeFormat() {
     let format;
     if(this.state.showSeconds) {
@@ -112,9 +120,7 @@ class TimeBlockInput extends Component {
           />
           :
           <span
-            onClick={() => {
-              this.setState({modify: true});
-            }}
+            onClick={this.enableTimeModify}
           >
             {this.formatTime(this.state.time)}
           </span>
