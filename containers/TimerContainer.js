@@ -34,6 +34,7 @@ const mapDispatchToProps = dispatch => ({
   },
   hideTimer: (id, date) => {
     dispatch(hideTimer(id, date));
+    saveTimersState(dispatch);
   }
 });
 
