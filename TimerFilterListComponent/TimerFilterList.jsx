@@ -20,16 +20,19 @@ class TimerFilterList extends Component {
         <TimerInputContainer
           timerInput={this.state.timerInput} 
           updateTimerInput={this.updateTimerInput}
+          date={this.props.date}
         />
         <TimerListContainer 
           filter={this.state.timerInput}
           timers={this.props.timers}
+          date={this.props.date}
         />
       </div>
     );
   }
 }
 TimerFilterList.propTypes = {
-  timers: PropTypes.array.isRequired
+  timers: PropTypes.array.isRequired,
+  date: PropTypes.string.isRequired
 };
 export default TimerFilterList;

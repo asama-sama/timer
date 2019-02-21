@@ -76,7 +76,13 @@ export const getTimeFormat = showSeconds => {
     format = 'HH:mm';
   }
   return format;
-}
+};
+
+export const getTimerByName = name => (
+  store.getState().timers.timersState.items
+    .find(timer => timer.name === name)
+);
+
 
 
 

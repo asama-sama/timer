@@ -1,17 +1,22 @@
 import { connect } from 'react-redux';
-import { addTimer, unhideTimers } from '../actions';
+import { addTimer, unhideTimer } from '../actions';
 import { saveTimersState } from '../api';
+import { getTimerByName } from '../utils';
 import TimerInput from '../TimerInputComponent/TimerInput';
 
 const mapStateToProps = () => ({});
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     addTimer: name => {
-      dispatch(addTimer(name));
+      let timer = getTimerByName(name);
+      if(timer) {
+        dispatch(unhideTimer(timer.id, ownProps.date));
+      } else {
+        dispatch(addTimer(name, ownProps.date));
+      }
       saveTimersState(dispatch);
-    },
-    unhideTimers: () => dispatch(unhideTimers())
+    }
   };
 };
 

@@ -189,14 +189,14 @@ const timers = (
 };
 
 const date = (
-  state = moment().startOf('day')._d, 
+  state = moment().startOf('day').format(), 
   action) => {
   let date = moment(state);
   switch(action.type){
   case 'DAY_FORWARD':
-    return moment(date).add(1, 'd')._d;
+    return moment(date).add(1, 'd').format();
   case 'DAY_BACK':
-    return moment(date).subtract(1, 'd')._d;
+    return moment(date).subtract(1, 'd').format();
   default:
     return state;
   }

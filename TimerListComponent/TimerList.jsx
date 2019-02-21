@@ -27,6 +27,6 @@ class TimerList extends Component {
 TimerList.propTypes = {
   timers: PropTypes.array.isRequired,
   unhideTimer: PropTypes.func.isRequired,
-  date: PropTypes.object.isRequired
+  date: PropTypes.string.isRequired
 };
 export default TimerList;

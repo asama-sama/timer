@@ -145,7 +145,7 @@ Timer.propTypes = {
   startTimer: PropTypes.func.isRequired,
   stopTimer: PropTypes.func.isRequired,
   activeTimer: PropTypes.string.isRequired,
-  date: PropTypes.object.isRequired,
+  date: PropTypes.string.isRequired,
   hideTimer: PropTypes.func.isRequired
 };
 export default Timer;

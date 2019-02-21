@@ -12,6 +12,7 @@ class TimerInput extends Component {
   onEnterAddTimer(addTimer, e) {
     if(e.key == 'Enter') {
       addTimer(this.props.timerInput);
+      this.props.updateTimerInput('');
     }
   }
 
