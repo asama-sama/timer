@@ -11,23 +11,23 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
     dispatch(deleteTimeBlock(ownProps.id));
     saveTimersState(dispatch);
   },
-  updateTimeBlockStart: (id, newTime, startTime, endTime) => {
-    // time comes in format HH:mm:ss
-    let mNewTime = moment(newTime, 'HH:mm:ss');
-
-    let mStartTime = moment(startTime)
-      .set('hour', mNewTime.hour())
-      .set('minute', mNewTime.minute())
-      .set('second', mNewTime.second());
+  updateTimeBlockStart: (timeBlockId, newStartTime, endTime) => {
+    let mNewStartTime = moment(newStartTime);
     let mEndTime = moment(endTime);
-    if(mStartTime.isBefore(mEndTime)) {
-      dispatch(updateTimeBlockStart(id, mStartTime.format()));
+
+    if(mNewStartTime.isBefore(mEndTime)) {
+      dispatch(updateTimeBlockStart(timeBlockId, mNewStartTime.format()));
       saveTimersState(dispatch);
     }
   },
-  updateTimeBlockEnd: (id, time) => {
-    dispatch(updateTimeBlockEnd(id, time));
-    saveTimersState(dispatch);
+  updateTimeBlockEnd: (timeBlockId, startTime, newEndTime) => {
+    let mStartTime = moment(startTime);
+    let mNewEndTime = moment(newEndTime);
+
+    if(mNewEndTime.isAfter(mStartTime)) {
+      dispatch(updateTimeBlockEnd(timeBlockId, mNewEndTime.format()));
+      saveTimersState(dispatch);
+    }
   }
 });
 

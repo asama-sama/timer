@@ -64,18 +64,22 @@ class TimeBlock extends Component {
         <TimeBlockInput
           id={this.props.id} 
           input={this.props.start}
-          updateTimeBlock={newTime => 
+          updateTimeBlock={newStartTime => 
             this.props.updateTimeBlockStart(
               this.props.id,
-              newTime,
-              this.props.start, 
+              newStartTime, 
               this.props.end)}
         />
         -
         <TimeBlockInput 
           id={this.props.id} 
           input={this.props.end} 
-          updateTimeBlock={this.props.updateTimeBlockEnd}
+          updateTimeBlock={newEndTime => 
+            this.props.updateTimeBlockEnd(
+              this.props.id,
+              this.props.start,
+              newEndTime
+            )}
         />
         {this.state.showDelete ?
           this.deleteTimeBlockConfirm() : undefined }

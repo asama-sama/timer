@@ -85,19 +85,26 @@ const timer = (
     return {
       ...state,
       timeBlocks:
-        state.timeBlocks.map(tb => {
-          if(tb.id === action.id) {
-            return {
+        state.timeBlocks.map(tb => (
+          tb.id === action.id ?
+            {
               ...tb,
               start: action.time
-            };
-          }
-          return tb;
-        })
+            } 
+            : tb ))
     };
   case 'UPDATE_TIME_BLOCK_END': {
-    console.log(action.id, action.time);
-    return state;
+    return {
+      ...state,
+      timeBlocks:
+        state.timeBlocks.map(tb => (
+          tb.id === action.id ?
+            {
+              ...tb,
+              end: action.time
+            }
+            : tb))
+    };
   }
   default:
     return state;

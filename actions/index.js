@@ -39,6 +39,11 @@ export const deleteTimeBlock = timeBlockId => ({
   timeBlockId
 });
 
+/**
+ * [description]
+ * @param  {[type]} id   id of time block
+ * @param  {string} time moment().format()
+ */
 export const updateTimeBlockStart = (id, time) => ({
   type: 'UPDATE_TIME_BLOCK_START',
   id,

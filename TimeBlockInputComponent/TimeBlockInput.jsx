@@ -8,18 +8,21 @@ class TimeBlockInput extends Component {
     super(props);
     this.formatTime = this.formatTime.bind(this);
     this.onEnter = this.onEnter.bind(this);
+    this.onTimeInputChange = this.onTimeInputChange.bind(this);
+    this.getTimeFormat = this.getTimeFormat.bind(this);
 
     this.state = {
-      time: this.props.input ? this.formatTime(this.props.input) : undefined,
+      time: this.props.input,
       refreshClock: true,
-      shouldUpdate: false
+      shouldUpdate: false,
+      showSeconds: true
     };
   }
 
   componentDidUpdate(){
     if(this.state.shouldUpdate) {
       this.setState({
-        time: this.formatTime(this.props.input),
+        time: this.props.input,
         shouldUpdate: false
       });
     }
@@ -40,7 +43,7 @@ class TimeBlockInput extends Component {
   }
 
   formatTime(time) {
-    return moment(time).format('hh:mm:ss');
+    return moment(time).format(this.getTimeFormat());
   }
 
   onEnter(e) {
@@ -50,11 +53,31 @@ class TimeBlockInput extends Component {
     }
   }
 
+  getTimeFormat() {
+    if(this.state.showSeconds) {
+      return 'HH:mm:ss';
+    } else {
+      'HH:mm';
+    }
+  }
+
+  // timestamp format hh:mm:ss
+  onTimeInputChange(timestamp) {
+    let currTime = moment(this.state.time);
+    let mTimestamp = moment(timestamp, this.getTimeFormat());
+    currTime
+      .set('hour', mTimestamp.hour())
+      .set('minute', mTimestamp.minute())
+      .set('second', mTimestamp.second());
+    this.setState({time: currTime.format()});
+  }
+
   render() {
 
     return (<TimeField
-      value={this.state.time || moment().format('HH:mm:ss')}
-      onChange={e => this.setState({time: e})}
+      value={this.formatTime(this.state.time) 
+        || moment().format(this.getTimeFormat())}
+      onChange={this.onTimeInputChange}
       onKeyPress={this.onEnter}
       style={{
         border: 'none',
@@ -64,7 +87,7 @@ class TimeBlockInput extends Component {
         margin: '5px',
         marginTop: 0
       }}
-      showSeconds
+      showSeconds={this.state.showSeconds}
     />);
   }
 }
