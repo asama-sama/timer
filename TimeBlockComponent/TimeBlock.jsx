@@ -69,6 +69,7 @@ class TimeBlock extends Component {
               this.props.id,
               newStartTime, 
               this.props.end)}
+          calendarDate={this.props.calendarDate}
         />
         -
         <TimeBlockInput 
@@ -80,6 +81,7 @@ class TimeBlock extends Component {
               this.props.start,
               newEndTime
             )}
+          calendarDate={this.props.calendarDate}
         />
         {this.state.showDelete ?
           this.deleteTimeBlockConfirm() : undefined }
@@ -93,6 +95,7 @@ TimeBlock.propTypes = {
   deleteTimeBlock: PropTypes.func.isRequired,
   id: PropTypes.string.isRequired,
   updateTimeBlockStart: PropTypes.func.isRequired,
-  updateTimeBlockEnd: PropTypes.func.isRequired
+  updateTimeBlockEnd: PropTypes.func.isRequired,
+  calendarDate: PropTypes.any.isRequired
 };
 export default TimeBlock;

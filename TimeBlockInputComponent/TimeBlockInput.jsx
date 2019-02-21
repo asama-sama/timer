@@ -67,11 +67,18 @@ class TimeBlockInput extends Component {
   }
 
   getTimeFormat() {
+    let format;
     if(this.state.showSeconds) {
-      return 'HH:mm:ss';
+      format = 'HH:mm:ss';
     } else {
-      'HH:mm';
+      format = 'HH:mm';
     }
+    let calendarDate = moment(this.props.calendarDate);
+    let timeInput = moment(this.state.time);
+    if(!timeInput.isSame(calendarDate, 'day')) {
+      format += ', Do MMM';
+    }
+    return format;
   }
 
   // timestamp format hh:mm:ss
@@ -119,6 +126,7 @@ class TimeBlockInput extends Component {
 TimeBlockInput.propTypes = {
   input: PropTypes.any,
   id: PropTypes.string.isRequired,
-  updateTimeBlock: PropTypes.func.isRequired
+  updateTimeBlock: PropTypes.func.isRequired,
+  calendarDate: PropTypes.any.isRequired
 };
 export default TimeBlockInput;

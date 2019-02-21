@@ -4,7 +4,9 @@ import TimeBlock from '../TimeBlockComponent/TimeBlock';
 import { saveTimersState } from '../api';
 import moment from 'moment';
 
-const mapStateToProps = () => ({});
+const mapStateToProps = state => ({
+  calendarDate: state.date
+});
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
   deleteTimeBlock: () => { 
