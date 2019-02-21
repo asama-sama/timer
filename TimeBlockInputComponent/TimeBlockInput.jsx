@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import TimeField from 'react-simple-timefield';
+import './TimeBlockInput.css';
 
 class TimeBlockInput extends Component {
   constructor(props) {
@@ -10,12 +11,14 @@ class TimeBlockInput extends Component {
     this.onEnter = this.onEnter.bind(this);
     this.onTimeInputChange = this.onTimeInputChange.bind(this);
     this.getTimeFormat = this.getTimeFormat.bind(this);
+    this.resetInput = this.resetInput.bind(this);
 
     this.state = {
       time: this.props.input,
       refreshClock: true,
       shouldUpdate: false,
-      showSeconds: true
+      showSeconds: true,
+      modify: false
     };
   }
 
@@ -42,13 +45,23 @@ class TimeBlockInput extends Component {
     this.setState({refreshClock: !this.state.refreshClock});
   }
 
+  resetInput() {
+    this.setState({
+      time: this.props.input,
+      modify: false
+    });
+  }
+
   formatTime(time) {
     return moment(time).format(this.getTimeFormat());
   }
 
   onEnter(e) {
     if(e.key==='Enter') {
-      this.setState({shouldUpdate: true});
+      this.setState({
+        shouldUpdate: true,
+        modify: false
+      });
       this.props.updateTimeBlock(this.state.time);
     }
   }
@@ -73,22 +86,35 @@ class TimeBlockInput extends Component {
   }
 
   render() {
-
-    return (<TimeField
-      value={this.formatTime(this.state.time) 
-        || moment().format(this.getTimeFormat())}
-      onChange={this.onTimeInputChange}
-      onKeyPress={this.onEnter}
-      style={{
-        border: 'none',
-        borderBottom: '1px solid rgb(224, 224, 224)',
-        width: '50px',
-        textAlign: 'center',
-        margin: '5px',
-        marginTop: 0
-      }}
-      showSeconds={this.state.showSeconds}
-    />);
+    return (
+      <span>
+        {this.state.modify ?
+          <TimeField
+            value={this.formatTime(this.state.time) 
+              || moment().format(this.getTimeFormat())}
+            onChange={this.onTimeInputChange}
+            onKeyPress={this.onEnter}
+            input={<input 
+              type='text'
+              autoFocus
+              styleName='TimeBlockInput-Modify'
+              onBlur={this.resetInput}
+            />}
+            showSeconds={this.state.showSeconds}
+            ref={this.inputRef}
+          />
+          :
+          <span
+            styleName='TimeBlockInput-Display'
+            onClick={() => {
+              this.setState({modify: true});
+            }}
+          >
+            {this.formatTime(this.state.time)}
+          </span>
+        }
+      </span>
+    );
   }
 }
 TimeBlockInput.propTypes = {
