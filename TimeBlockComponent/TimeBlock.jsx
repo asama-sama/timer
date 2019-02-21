@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import { Icon, Button, Header, Modal } from 'semantic-ui-react';
 import TimeBlockInput from '../TimeBlockInputComponent/TimeBlockInput';
+import TimeBlockInputRunning from '../TimeBlockInputComponent/TimeBlockInputRunning';
 import './TimeBlock.css';
 
 class TimeBlock extends Component {
@@ -72,17 +73,21 @@ class TimeBlock extends Component {
           calendarDate={this.props.calendarDate}
         />
         -
-        <TimeBlockInput 
-          id={this.props.id} 
-          input={this.props.end} 
-          updateTimeBlock={newEndTime => 
-            this.props.updateTimeBlockEnd(
-              this.props.id,
-              this.props.start,
-              newEndTime
-            )}
-          calendarDate={this.props.calendarDate}
-        />
+        {this.props.end ?
+          <TimeBlockInput 
+            id={this.props.id} 
+            input={this.props.end} 
+            updateTimeBlock={newEndTime => 
+              this.props.updateTimeBlockEnd(
+                this.props.id,
+                this.props.start,
+                newEndTime
+              )}
+            calendarDate={this.props.calendarDate}
+          /> :
+          <TimeBlockInputRunning />
+        }
+        
         {this.state.showDelete ?
           this.deleteTimeBlockConfirm() : undefined }
       </div>

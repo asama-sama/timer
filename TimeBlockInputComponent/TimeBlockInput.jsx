@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import TimeField from 'react-simple-timefield';
+import { getTimeFormat as uGetTimeFormat } from '../utils';
 import './TimeBlockInput.css';
 
 class TimeBlockInput extends Component {
@@ -16,7 +17,6 @@ class TimeBlockInput extends Component {
 
     this.state = {
       time: this.props.input,
-      refreshClock: true,
       shouldUpdate: false,
       showSeconds: true,
       modify: false
@@ -30,20 +30,6 @@ class TimeBlockInput extends Component {
         shouldUpdate: false
       });
     }
-  }
-
-  componentDidMount() {
-    this.timerID = setInterval(
-      () => this.tick(),1000
-    );
-  }
-
-  componentWillUnmount(){
-    clearInterval(this.timerID);
-  }
-
-  tick() {
-    this.setState({refreshClock: !this.state.refreshClock});
   }
 
   resetInput() {
@@ -75,12 +61,8 @@ class TimeBlockInput extends Component {
   }
 
   getTimeFormat() {
-    let format;
-    if(this.state.showSeconds) {
-      format = 'HH:mm:ss';
-    } else {
-      format = 'HH:mm';
-    }
+    let format = uGetTimeFormat(this.state.showSeconds) ;
+
     let calendarDate = moment(this.props.calendarDate);
     let timeInput = moment(this.state.time);
     if(!timeInput.isSame(calendarDate, 'day')) {

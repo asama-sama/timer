@@ -68,6 +68,16 @@ export const timeWithinTimeBlocks = (time, timeBlockId) => {
     .reduce((acc, next) => acc || next, false);
 };
 
+export const getTimeFormat = showSeconds => {
+  let format;
+  if(showSeconds) {
+    format = 'HH:mm:ss';
+  } else {
+    format = 'HH:mm';
+  }
+  return format;
+}
+
 
 
 
