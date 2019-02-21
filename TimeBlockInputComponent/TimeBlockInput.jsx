@@ -87,7 +87,7 @@ class TimeBlockInput extends Component {
 
   render() {
     return (
-      <span>
+      <span styleName='TimeBlockInput'>
         {this.state.modify ?
           <TimeField
             value={this.formatTime(this.state.time) 
@@ -105,7 +105,6 @@ class TimeBlockInput extends Component {
           />
           :
           <span
-            styleName='TimeBlockInput-Display'
             onClick={() => {
               this.setState({modify: true});
             }}
