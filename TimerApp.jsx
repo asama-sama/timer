@@ -9,7 +9,6 @@ class TimerApp extends Component {
   
   constructor(props) {
     super(props);
-    this.state = {timerInput: ''};
   }
 
   componentDidUpdate() {

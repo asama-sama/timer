@@ -188,6 +188,7 @@ const timers = (
     return {
       ...state,
       timersState: {
+        ...state.timersState,
         items
       }
     };
