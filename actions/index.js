@@ -56,40 +56,11 @@ export const updateTimeBlockEnd = (id, time) => ({
   time
 });
 
-export const requestState = () => ({
-  type: 'REQUEST_STATE'
+export const updateState = data => ({
+  type: 'UPDATE_STATE',
+  data,
+  receivedAt: new Date()
 });
-
-export const requestStateSuccess = json => ({
-  type: 'RECEIVE_STATE',
-  data: json,
-  receivedAt: Date.now()
-});
-
-export const requestStateFail = () => ({
-  type: 'RECEIVE_STATE_FAIL',
-  receivedAt: Date.now()
-});
-
-export const fetchState = () => {
-  return dispatch => {
-    dispatch(requestStateSuccess());
-
-    return fetch('/api/timer/getState')
-      .then(
-        res => res.json(),
-        error => console.error('An error occurred', error))
-      .then(json => {
-        // object is empty
-        if(!Object.keys(json).length) {
-          dispatch(requestStateSuccess(undefined));
-        } else {
-          dispatch(requestStateSuccess(json));
-        }
-      })
-      .catch(() => dispatch(requestStateFail()));
-  };
-};
 
 export const saveTimersStateRequest = () => ({
   type: 'SAVE_TIMERS_STATE_REQUEST'

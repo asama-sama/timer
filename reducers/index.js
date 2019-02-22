@@ -141,6 +141,15 @@ const timers = (
     }
     return newState;
   }
+  case 'UPDATE_STATE' : {
+    return {
+      ...state,
+      isFetching: false,
+      didInvalidate: false,
+      lastUpdated: action.receivedAt,
+      timersState: action.data
+    };
+  }
   case 'ADD_TIMER': {
     let newTimerInput = action.name.trim();
     if(state.timersState.items.find(timer => timer.name === newTimerInput)) {

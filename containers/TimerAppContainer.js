@@ -1,18 +1,22 @@
 import { connect } from 'react-redux';
 import TimerApp from '../TimerApp';
-import { fetchState } from '../actions';
-import { isTimerVisibleForDate } from '../utils';
+import { isTimerVisibleForDate, isStateSame } from '../utils';
+import { updateState } from '../actions';
 
 // show only the timers that are visible for the given day
 const mapStateToProps = state => {
   return {
     timers: state.timers.timersState.items
-      .filter(t => isTimerVisibleForDate(t, state.date))
+      .filter(t => isTimerVisibleForDate(t, state.date)),
+    id: state.timers.timersState.id
   };
 };
 
 const mapDispatchToProps = dispatch => ({
-  fetchState: () => dispatch(fetchState())
+  updateState: data => !isStateSame(data) ? 
+    dispatch(updateState(data)) 
+    : 
+    undefined
 });
 
 
