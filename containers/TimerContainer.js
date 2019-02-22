@@ -1,7 +1,6 @@
 import {connect} from 'react-redux';
 import Timer from '../TimerComponent/Timer';
 import {stopTimer, startTimer, hideTimer} from '../actions';
-import {saveTimersState} from '../api';
 import moment from 'moment';
 import {getActiveTimer} from '../utils';
 
@@ -26,15 +25,12 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = dispatch => ({
   stopTimer: id => {
     dispatch(stopTimer(id));
-    saveTimersState(dispatch);
   },
   startTimer: id => {
     dispatch(startTimer(id));
-    saveTimersState(dispatch);
   },
   hideTimer: (id, date) => {
     dispatch(hideTimer(id, date));
-    saveTimersState(dispatch);
   }
 });
 

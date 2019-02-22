@@ -1,7 +1,6 @@
 import { connect } from 'react-redux';
 import { deleteTimeBlock, updateTimeBlockStart, updateTimeBlockEnd } from '../actions';
 import TimeBlock from '../TimeBlockComponent/TimeBlock';
-import { saveTimersState } from '../api';
 import { timeWithinTimeBlocks } from '../utils';
 import moment from 'moment';
 
@@ -12,7 +11,6 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = (dispatch, ownProps) => ({
   deleteTimeBlock: () => { 
     dispatch(deleteTimeBlock(ownProps.id));
-    saveTimersState(dispatch);
   },
   updateTimeBlockStart: (timeBlockId, newStartTime, endTime) => {
     let mNewStartTime = moment(newStartTime);
@@ -21,7 +19,7 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
     if(mNewStartTime.isBefore(mEndTime)
       && !timeWithinTimeBlocks(newStartTime, timeBlockId)) {
       dispatch(updateTimeBlockStart(timeBlockId, mNewStartTime.format()));
-      saveTimersState(dispatch);
+
     }
   },
   updateTimeBlockEnd: (timeBlockId, startTime, newEndTime) => {
@@ -30,7 +28,6 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
 
     if(mNewEndTime.isAfter(mStartTime)) {
       dispatch(updateTimeBlockEnd(timeBlockId, mNewEndTime.format()));
-      saveTimersState(dispatch);
     }
   }
 });

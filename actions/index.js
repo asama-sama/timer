@@ -62,40 +62,6 @@ export const updateState = data => ({
   receivedAt: new Date()
 });
 
-export const saveTimersStateRequest = () => ({
-  type: 'SAVE_TIMERS_STATE_REQUEST'
-});
-
-export const saveTimersStateSuccess = () => ({
-  type: 'SAVE_TIMERS_STATE_SUCCESS'
-});
-
-export const saveTimersStateFail = () => ({
-  type: 'SAVE_TIMERS_STATE_FAIL'
-});
-
-/** Do not call this directly. Call from /api */
-export const saveTimersState = (data) => {
-  return dispatch => {
-    dispatch(saveTimersStateRequest());
-
-    return fetch('/api/timer/saveTimersState', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(data)
-    })
-      .then( res => {
-        if(res.ok) {
-          dispatch(saveTimersStateSuccess());
-        } else {
-          dispatch(saveTimersStateFail());
-        }
-      });
-  };
-};
-
 export const subtractDay = () => ({
   type: 'DAY_BACK'
 });

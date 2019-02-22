@@ -3,6 +3,7 @@ import TimerContainer from './containers/TimerContainer';
 import PropTypes from 'prop-types';
 import DatePickerContainer from './containers/DatePickerContainer';
 import TimerFilterListContainer from './containers/TimerFilterListContainer';
+import store from './reducers';
 import './TimerApp.css';
 
 class TimerApp extends Component {
@@ -11,8 +12,15 @@ class TimerApp extends Component {
     super(props);
   }
 
+  componentDidMount() {
+    this.props.updateState(this.props.timerData);
+  }
+
   componentDidUpdate() {
     this.props.updateState(this.props.timerData);
+    if(this.props.onSaveState){
+      this.props.onSaveState(store.getState().timers.timersState);
+    }
   }
 
   render() {
@@ -33,6 +41,7 @@ class TimerApp extends Component {
 TimerApp.propTypes = {
   timers: PropTypes.array.isRequired,
   timerData: PropTypes.object.isRequired,
-  updateState: PropTypes.func.isRequired
+  updateState: PropTypes.func.isRequired,
+  onSaveState: PropTypes.func
 };
 export default TimerApp;

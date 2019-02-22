@@ -9,12 +9,16 @@ class TimerAppWrapper extends Component {
   render() {
     return (
       <Provider store={store}>
-        <TimerAppContainer timerData={this.props.timerData}/>
+        <TimerAppContainer
+          timerData={this.props.timerData}
+          onSaveState={this.props.onSaveState}
+        />
       </Provider>
     );
   }
 }
 TimerAppWrapper.propTypes = {
-  timerData: PropTypes.object.isRequired
+  timerData: PropTypes.object.isRequired,
+  onSaveState: PropTypes.func
 };
 export default TimerAppWrapper;
