@@ -69,14 +69,30 @@ const timer = (
     if(action.id===state.id) {
       let visibleDates = [
         ...state.visibleDates,
-        moment(action.date).startOf('day')._d
+        moment(action.date).startOf('day').format()
       ];
       return {...state, visibleDates};
     } else {
       return state;
     }
-  case 'UNHIDE_TIMERS':
-    return {...state, hide: false};
+  case 'UNHIDE_RUNNING_TIMERS_FOR_DATE': {
+    let running = state.timeBlocks.map(tb => {
+      return !tb.end;
+    }).reduce((acc, next) => acc || next, false);
+    let visibleDates = [...state.visibleDates];
+    if(running) {
+      let date = moment(action.date);
+      let isVisible = visibleDates
+        .find(vd => moment(vd).isSame(date, 'day'));
+      if(!isVisible) {
+        visibleDates = [
+          ...visibleDates,
+          date.startOf('day').format()
+        ];
+      }
+    }
+    return {...state, visibleDates};
+  }
   case 'DELETE_TIME_BLOCK': {
     let timeBlocks = state.timeBlocks.filter(tb => tb.id !== action.timeBlockId);
     return {...state, timeBlocks};
@@ -169,7 +185,7 @@ const timers = (
               name: newTimerInput,
               timeBlocks: [],
               id: uuid(),
-              visibleDates: [moment().startOf('day')._d]
+              visibleDates: [moment().startOf('day').format()]
             }]
         }
       };
@@ -180,6 +196,7 @@ const timers = (
   case 'STOP_TIMER':
   case 'HIDE_TIMER':
   case 'UNHIDE_TIMER':
+  case 'UNHIDE_RUNNING_TIMERS_FOR_DATE':
   case 'UNHIDE_TIMERS':
   case 'DELETE_TIME_BLOCK':
   case 'UPDATE_TIME_BLOCK_START':

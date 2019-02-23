@@ -24,13 +24,14 @@ export const hideTimer = (id, date) => ({
   date
 });
 
-export const unhideTimers = () => ({
-  type: 'UNHIDE_TIMERS'
-});
-
 export const unhideTimer = (id, date) => ({
   type: 'UNHIDE_TIMER',
   id,
+  date
+});
+
+export const unhideRunningTimersForDate =  date => ({
+  type: 'UNHIDE_RUNNING_TIMERS_FOR_DATE',
   date
 });
 
