@@ -7,7 +7,7 @@
 .Timer-Text {
   width: 250px;
   display: inline-block;
-  margin-right: 20px;
+  margin-left: 10px;
 }
 
 .Timer-Text--active {
@@ -20,13 +20,13 @@
 }
 
 .Timer-Buttons {
-  margin-left: 10px;
-  display: inline-block;
+  /*margin-left: 10px;
+  display: inline-block;*/
 }
 
 .Timer-HideIcon {
   position: absolute;
   left: 0;
   cursor: pointer;
-  top: 5px;
+  top: 3px;
 }

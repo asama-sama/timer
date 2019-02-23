@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import TimerContainer from './containers/TimerContainer';
 import PropTypes from 'prop-types';
+import { Grid } from 'semantic-ui-react';
 import DatePickerContainer from './containers/DatePickerContainer';
 import TimerFilterListContainer from './containers/TimerFilterListContainer';
 import store from './reducers';
@@ -28,12 +29,16 @@ class TimerApp extends Component {
     return (
       <div styleName='TimerApp'>
         <DatePickerContainer></DatePickerContainer>
-        {this.props.timers.map(timer => {
-          return (
-            <TimerContainer key={timer.name}
-              name={timer.name}
-            />);
-        })}
+        <Grid 
+          columns={3}
+          style={{margin: 0, marginBottom: '10px', width: '100%'}}>
+          {this.props.timers.map(timer => {
+            return (
+              <TimerContainer key={timer.name}
+                name={timer.name}
+              />);
+          })}
+        </Grid>
         <TimerFilterListContainer />
       </div>
     );
