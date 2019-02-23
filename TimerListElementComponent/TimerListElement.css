@@ -5,3 +5,8 @@
 .TimerListElement--highlight {
   color: #008080;
 }
+
+.TimerListElement-Icon {
+  position: relative;
+  top: 1px;
+}

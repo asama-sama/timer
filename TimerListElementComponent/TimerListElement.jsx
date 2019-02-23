@@ -35,6 +35,7 @@ class TimerListElement extends Component {
       >
         <Icon 
           name='unhide'
+          styleName='TimerListElement-Icon'
         />
         <span>{this.props.name}</span>
       </div> );

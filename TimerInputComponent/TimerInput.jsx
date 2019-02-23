@@ -20,7 +20,7 @@ class TimerInput extends Component {
     const newTimerInput = this.props.timerInput;
     const addTimer = this.props.addTimer;
     return(
-      <div className="Timer">
+      <div className="Timer" style={{textAlign: 'center'}}>
         <Input
           type="text"
           name="newTimer" 
@@ -32,6 +32,11 @@ class TimerInput extends Component {
           iconPosition='left'
           onChange={e => this.props.updateTimerInput(e.target.value)}
           onKeyPress={e => this.onEnterAddTimer(addTimer, e)}
+          action={{
+            icon: 'add', 
+            color: 'blue',
+            onClick: () => this.onEnterAddTimer(addTimer, {key: 'Enter'})
+          }}
         />
       </div>);
   }
