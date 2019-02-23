@@ -1,19 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Icon } from 'semantic-ui-react';
-import './TimerList.css';
+import TimerListElement from '../TimerListElementComponent/TimerListElement';
 
 const TimerList = ({timers, unhideTimer, date}) => (
   <div>
     {timers.map(timer => 
-      <div key={timer.name}>
-        <Icon 
-          name='unhide'
-          styleName='TimerList-Unhide' 
-          onClick={()=>unhideTimer(timer.id, date)}
-        />
-        <span>{timer.name}</span>
-      </div>)}
+      <TimerListElement
+        key={timer.id}
+        {...timer}
+        date={date}
+        unhideTimer={unhideTimer}
+      />)
+    }
   </div>
 );
 TimerList.propTypes = {

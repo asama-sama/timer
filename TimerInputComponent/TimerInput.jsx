@@ -26,7 +26,10 @@ class TimerInput extends Component {
           name="newTimer" 
           size="mini"
           autoComplete='off'
+          placeholder='Add or search timers...'
           value={newTimerInput} 
+          icon='clock'
+          iconPosition='left'
           onChange={e => this.props.updateTimerInput(e.target.value)}
           onKeyPress={e => this.onEnterAddTimer(addTimer, e)}
         />

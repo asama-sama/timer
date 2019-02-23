@@ -1,0 +1,7 @@
+.TimerListElement {
+  cursor: pointer;
+}
+
+.TimerListElement--highlight {
+  color: #008080;
+}
