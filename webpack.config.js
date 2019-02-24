@@ -15,7 +15,24 @@ module.exports = {
       {
         test: /\.css$/,
         include: [
-          path.resolve(__dirname, "src"),
+          path.resolve(__dirname, "src")],
+        use: [
+          'style-loader',
+          { 
+            loader: 'css-loader', 
+            options: 
+              {
+                modules: true, 
+                importLoaders: 1,
+                localIdentName: '[path]___[name]__[local]___[hash:base64:5]'
+              } 
+          },
+          'postcss-loader'
+        ]
+      },
+      {
+        test: /\.css$/,
+        include: [
           path.resolve(__dirname, "node_modules/semantic-ui")],
         use: [
           {
