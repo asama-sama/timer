@@ -17,18 +17,20 @@ class TimerFilterList extends Component {
 
   render() {
     return (
-      <Segment style={{maxWidth: '260px'}}>
-        <TimerInputContainer
-          timerInput={this.state.timerInput} 
-          updateTimerInput={this.updateTimerInput}
-          date={this.props.date}
-        />
-        <Divider />
-        <TimerListContainer 
-          filter={this.state.timerInput}
-          date={this.props.date}
-        />
-      </Segment>
+      <div style={{paddingLeft: '20px'}}>
+        <Segment style={{maxWidth: '260px'}}>
+          <TimerInputContainer
+            timerInput={this.state.timerInput} 
+            updateTimerInput={this.updateTimerInput}
+            date={this.props.date}
+          />
+          <Divider />
+          <TimerListContainer 
+            filter={this.state.timerInput}
+            date={this.props.date}
+          />
+        </Segment>
+      </div>
     );
   }
 }

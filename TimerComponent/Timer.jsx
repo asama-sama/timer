@@ -110,22 +110,24 @@ class Timer extends Component {
                 onClick={() => this.props.hideTimer(id, date)}
               /> : '' }
             <span 
-              styleName={this.isTimerActive() ? 'Timer-Text Timer-Text--active' : 'Timer-Text'}
+              styleName={this.isTimerActive() ? 
+                'Timer-Text Timer-Text--active' 
+                :'Timer-Text'}
             >
               {name}
             </span>
           </div>
         </Grid.Column>
-        <Grid.Column width={5}>
+        <Grid.Column width={4}>
           <span styleName={this.isTimerActive() ? 'Timer-Sumtime--active': ''}>
             {this.sumTimers()}
           </span>
         </Grid.Column>
-        <Grid.Column width={6} 
-          textAlign='center'
+        <Grid.Column width={7} 
+          textAlign='right'
         >
           <div styleName='Timer-Buttons'>
-            <Button.Group size='tiny' styleName=''>
+            <Button.Group size='mini' styleName=''>
               <Button
                 disabled={this.isStartTimerDisabled()}
                 color='green' 
@@ -143,7 +145,7 @@ class Timer extends Component {
             </Button.Group>
           </div>
         </Grid.Column>
-        <Grid.Column width={10}>
+        <Grid.Column width={10} textAlign='center'>
           {timeBlocks}
         </Grid.Column>
       </Grid.Row>
