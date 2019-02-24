@@ -14,7 +14,9 @@ module.exports = {
       { test: /\.jsx?$/, exclude: /node_modules/, loader: "babel-loader" },
       {
         test: /\.css$/,
-        exclude: /node_modules/,
+        include: [
+          path.resolve(__dirname, "src"),
+          path.resolve(__dirname, "node_modules/semantic-ui")],
         use: [
           {
             loader: 'style-loader',
@@ -28,6 +30,18 @@ module.exports = {
           {
             loader: 'postcss-loader'
           }
+        ]
+      },
+      {
+        test: /\.(png|svg|jpg|gif)$/,
+        use: [
+          'file-loader'
+        ]
+      },
+      {
+        test: /\.(woff|woff2|eot|ttf|otf)$/,
+        use: [
+          'file-loader'
         ]
       }
     ]
