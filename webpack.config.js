@@ -4,7 +4,8 @@ module.exports = {
   entry: './src/index.jsx',
   output: {
     filename: 'bundle.js',
-    path: path.resolve(__dirname, 'dist')
+    path: path.resolve(__dirname, 'dist'),
+    libraryTarget: 'commonjs2'
   },
   resolve: {
     extensions: ['.js', '.jsx', '.json', '.css']
@@ -62,5 +63,8 @@ module.exports = {
         ]
       }
     ]
+  },
+  externals: {
+    'react': 'commonjs react'
   }
 };

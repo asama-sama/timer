@@ -1,10 +1,14 @@
 {
   "name": "timer",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "dist/bundle.js",
   "repository": "git@github.com:aykyu/timer.git",
   "author": "Asama Qureshi <asama.qureshi@gmail.com>",
   "license": "MIT",
+  "scripts": {
+    "build": "webpack",
+    "dev": "webpack --watch --progress"
+  },
   "dependencies": {
     "file-loader": "3.0.1",
     "moment": "2.24.0",
