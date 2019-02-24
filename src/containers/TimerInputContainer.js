@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import { addTimer, unhideTimer } from '../actions';
 import { getTimerByName } from '../utils';
-import TimerInput from '../TimerInputComponent/TimerInput';
+import TimerInput from '../Components/TimerInputComponent/TimerInput';
 
 const mapStateToProps = () => ({});
 

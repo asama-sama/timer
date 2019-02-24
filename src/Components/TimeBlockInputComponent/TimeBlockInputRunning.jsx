@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import moment from 'moment';
-import { getTimeFormat } from '../utils';
+import { getTimeFormat } from '../../utils';
 import './TimeBlockInput.css';
 
 class TimeBlockInputRunning extends Component {

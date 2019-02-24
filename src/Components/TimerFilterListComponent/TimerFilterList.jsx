@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Segment, Divider} from 'semantic-ui-react';
-import TimerListContainer from '../containers/TimerListContainer';
-import TimerInputContainer from '../containers/TimerInputContainer';
+import TimerListContainer from '../../containers/TimerListContainer';
+import TimerInputContainer from '../../containers/TimerInputContainer';
 
 class TimerFilterList extends Component {
   constructor(props) {

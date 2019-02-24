@@ -1,5 +1,5 @@
 import {connect} from 'react-redux';
-import TimerList from '../TimerListComponent/TimerList';
+import TimerList from '../Components/TimerListComponent/TimerList';
 import {unhideTimer} from '../actions';
 import { isTimerVisibleForDate } from '../utils';
 

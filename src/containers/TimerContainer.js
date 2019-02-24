@@ -1,5 +1,5 @@
 import {connect} from 'react-redux';
-import Timer from '../TimerComponent/Timer';
+import Timer from '../Components/TimerComponent/Timer';
 import {stopTimer, startTimer, hideTimer} from '../actions';
 import moment from 'moment';
 import {getActiveTimer} from '../utils';

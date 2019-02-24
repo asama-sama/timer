@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import TimerFilterList from '../TimerFilterListComponent/TimerFilterList';
+import TimerFilterList from '../Components/TimerFilterListComponent/TimerFilterList';
 
 
 const mapStateToProps = state => ({

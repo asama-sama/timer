@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import moment from 'moment';
 import { Button, Icon, Grid } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
-import TimeBlockContainer from '../containers/TimeBlockContainer';
+import TimeBlockContainer from '../../containers/TimeBlockContainer';
 import './Timer.css';
 
 class Timer extends Component {

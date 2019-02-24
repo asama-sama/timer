@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import TimeField from 'react-simple-timefield';
-import { getTimeFormat as uGetTimeFormat } from '../utils';
+import { getTimeFormat as uGetTimeFormat } from '../../utils';
 import './TimeBlockInput.css';
 
 class TimeBlockInput extends Component {

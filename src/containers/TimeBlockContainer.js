@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import { deleteTimeBlock, updateTimeBlockStart, updateTimeBlockEnd } from '../actions';
-import TimeBlock from '../TimeBlockComponent/TimeBlock';
+import TimeBlock from '../Components/TimeBlockComponent/TimeBlock';
 import { timeWithinTimeBlocks } from '../utils';
 import moment from 'moment';
 
