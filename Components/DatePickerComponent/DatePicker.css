@@ -1,0 +1,25 @@
+.DatePicker {
+  text-align: center;
+  font-weight: bold;
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.DatePicker-Arrow {
+  cursor: pointer;
+}
+
+.DatePicker-Text {
+  cursor: default;
+  user-select: none;
+}
+
+.DatePicker-Arrow-Left {
+  float: left;
+  padding-left: 40px;
+}
+
+.DatePicker-Arrow-Right {
+  float: right;
+  padding-right: 40px;
+}

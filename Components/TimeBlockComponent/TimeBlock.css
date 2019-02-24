@@ -1,0 +1,9 @@
+.TimeBlock {
+  font-size: 12px;
+  color: #6f6f6f;
+  padding-left: 10px;
+}
+
+.TimeBlock-Delete {
+  cursor: pointer;
+}
