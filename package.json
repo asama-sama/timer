@@ -1,5 +1,5 @@
 {
-  "name": "timer",
+  "name": "@aykyu/react-timetracker",
   "version": "1.0.0",
   "main": "dist/bundle.js",
   "repository": "git@github.com:aykyu/timer.git",
