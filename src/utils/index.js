@@ -83,10 +83,10 @@ export const getTimerByName = name => (
     .find(timer => timer.name === name)
 );
 
-export const isStateSame = newState => (
-  store.getState().timers.timersState._id
-    === newState._id
-);
+export const isStateSame = newState => {
+  return store.getState().timers.timersState &&
+    store.getState().timers.timersState._id === newState._id
+};
 
 
 

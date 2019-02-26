@@ -6,6 +6,10 @@ import PropTypes from 'prop-types';
 
 class TimerAppWrapper extends Component {
 
+  constructor(props) {
+    super(props);
+  }
+
   render() {
     return (
       <Provider store={store}>

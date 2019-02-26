@@ -33,17 +33,21 @@ class TimerApp extends Component {
     return (
       <div styleName='TimerApp'>
         <DatePickerContainer></DatePickerContainer>
-        <Grid 
-          columns={3}
-          style={{margin: 0, marginBottom: '10px', width: '100%'}}>
-          {this.props.timers.map(timer => {
-            return (
-              <TimerContainer key={timer.name}
-                name={timer.name}
-              />);
-          })}
-        </Grid>
-        <TimerFilterListContainer />
+        {this.props.timers ?
+          <React.Fragment>
+            <Grid 
+              columns={3}
+              style={{margin: 0, marginBottom: '10px', width: '100%'}}>
+              {this.props.timers.map(timer => {
+                return (
+                  <TimerContainer key={timer.name}
+                    name={timer.name}
+                  />);
+              })}
+            </Grid>
+            <TimerFilterListContainer />
+          </React.Fragment>
+          : null }
       </div>
     );
   }
