@@ -14,12 +14,14 @@ class TimerApp extends Component {
   }
 
   componentDidMount() {
-    this.props.updateState(this.props.timerData);
-    this.props.unhideRunningTimersForDate(this.props.date);
+    if(this.props.timerData){
+      this.props.updateState(this.props.timerData);
+      this.props.unhideRunningTimersForDate(this.props.date);
+    }
   }
 
   componentDidUpdate() {
-    if(Object.keys(this.props.timerData).length!==0) {
+    if(this.props.timerData) {
       this.props.updateState(this.props.timerData);
       if(this.props.onSaveState){
         this.props.onSaveState(store.getState().timers.timersState);
@@ -49,7 +51,7 @@ class TimerApp extends Component {
 TimerApp.propTypes = {
   timers: PropTypes.array.isRequired,
   date: PropTypes.string.isRequired,
-  timerData: PropTypes.object.isRequired,
+  timerData: PropTypes.object,
   updateState: PropTypes.func.isRequired,
   unhideRunningTimersForDate: PropTypes.func.isRequired,
   onSaveState: PropTypes.func
