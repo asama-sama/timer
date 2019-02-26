@@ -19,9 +19,11 @@ class TimerApp extends Component {
   }
 
   componentDidUpdate() {
-    this.props.updateState(this.props.timerData);
-    if(this.props.onSaveState){
-      this.props.onSaveState(store.getState().timers.timersState);
+    if(Object.keys(this.props.timerData).length!==0) {
+      this.props.updateState(this.props.timerData);
+      if(this.props.onSaveState){
+        this.props.onSaveState(store.getState().timers.timersState);
+      }
     }
   }
 
