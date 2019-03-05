@@ -8,8 +8,9 @@
   "homepage": "https://aykyu.github.io/timer/",
   "scripts": {
     "build": "webpack",
+    "build-gh-page": "webpack --env=gh-page",
     "dev": "webpack --watch --progress",
-    "predeploy": "npm run build",
+    "predeploy": "npm run build-gh-page",
     "deploy": "gh-pages -d dist"
   },
   "dependencies": {
