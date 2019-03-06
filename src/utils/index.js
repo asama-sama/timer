@@ -5,16 +5,16 @@ import store from '../reducers';
 export const getActiveTimer = timers => {
   return timers.map(t => {
     return {
-      name: t.name,
+      ...t,
       active: isTimerActive(t)
     };
   }).reduce((acc, next) => {
     if(next.active) {
-      return next.name;
+      return next;
     } else {
       return acc;
     }
-  }, '');
+  }, {});
 };
 
 export const isTimerActive = timer => (

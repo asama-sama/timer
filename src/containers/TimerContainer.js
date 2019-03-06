@@ -17,7 +17,7 @@ const mapStateToProps = (state, ownProps) => {
   let activeTimer = getActiveTimer(state.timers.timersState.items);
   return {
     ...timer, 
-    activeTimer,
+    activeTimer: activeTimer.name,
     date: state.date
   };
 };
