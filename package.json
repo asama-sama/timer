@@ -7,17 +7,26 @@
   "license": "MIT",
   "homepage": "https://aykyu.github.io/timer/",
   "scripts": {
-    "build": "webpack",
+    "build": "webpack --mode=production ",
     "build-gh-page": "webpack --env=gh-page",
-    "dev": "webpack --watch --progress",
+    "dev": "webpack --watch --progress --mode=development",
     "predeploy": "npm run build-gh-page",
     "deploy": "gh-pages -d dist",
     "test": "jest"
   },
   "jest": {
-    "modulePaths": ["/shared/vendor/modules"],
-    "moduleFileExtensions": ["js", "jsx"],
-    "moduleDirectories": ["node_modules", "bower_components", "shared"],
+    "modulePaths": [
+      "/shared/vendor/modules"
+    ],
+    "moduleFileExtensions": [
+      "js",
+      "jsx"
+    ],
+    "moduleDirectories": [
+      "node_modules",
+      "bower_components",
+      "shared"
+    ],
     "moduleNameMapper": {
       "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/__mocks__/fileMock.js",
       "\\.(css|less)$": "identity-obj-proxy",
@@ -31,6 +40,7 @@
     "moment": "2.24.0",
     "postcss-import": "12.0.1",
     "postcss-preset-env": "6.5.0",
+    "prop-types": "15.7.2",
     "react": "16.8.3",
     "react-dom": "16.8.3",
     "react-redux": "6.0.1",
@@ -51,6 +61,11 @@
     "babel-plugin-react-css-modules": "5.2.0",
     "css-loader": "2.1.0",
     "cssnano": "4.1.10",
+    "eslint": "5.15.1",
+    "eslint-config-airbnb": "17.1.0",
+    "eslint-plugin-import": "2.16.0",
+    "eslint-plugin-jsx-a11y": "6.2.1",
+    "eslint-plugin-react": "7.12.4",
     "identity-obj-proxy": "3.0.0",
     "jest": "24.1.0",
     "postcss-loader": "3.0.0",

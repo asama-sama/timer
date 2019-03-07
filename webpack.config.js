@@ -64,13 +64,10 @@ module.exports = env => {
           ]
         }
       ]
-    },
-    externals: {
-      'react': 'commonjs react'
     }
-  }
+  };
 
-  if (env==='gh-page') {
+  if (env === 'gh-page') {
     config = {
       ...config,
       entry: './src/indexDom.jsx',
@@ -79,7 +76,7 @@ module.exports = env => {
         libraryTarget: 'var'
       },
       externals: undefined
-    }
+    };
   }
   return config;
 };
