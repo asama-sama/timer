@@ -75,6 +75,7 @@ class TimeBlock extends Component {
       updateTimeBlockStart, updateTimeBlockEnd
     } = this.props;
     const { showDelete } = this.state;
+    const DeleteButton = this.deleteTimeBlockConfirm;
     return (
       <div
         styleName='TimeBlock'
@@ -98,7 +99,7 @@ class TimeBlock extends Component {
         )
           : <TimeBlockInputRunning />
         }
-        {showDelete ? this.deleteTimeBlockConfirm() : undefined }
+        {showDelete ? <DeleteButton /> : undefined }
       </div>
     );
   }
