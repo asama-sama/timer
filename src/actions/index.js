@@ -91,11 +91,15 @@ export const updateState = data => ({
   receivedAt: new Date()
 });
 
-export const updateStateInit = data => ({
-  type: 'UPDATE_STATE_INIT',
-  data,
-  receivedAt: new Date()
-});
+export const updateStateInit = data => (
+  (dispatch, getState) => {
+    dispatch({
+      type: 'UPDATE_STATE_INIT',
+      data,
+      receivedAt: new Date()
+    });
+  }
+);
 
 export const subtractDay = () => ({
   type: 'DAY_BACK'

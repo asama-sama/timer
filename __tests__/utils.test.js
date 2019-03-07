@@ -76,12 +76,3 @@ test('gets correct time format without seconds', () => {
   expect(utils.getTimeFormat(false))
     .toBe('HH:mm');
 });
-
-// test('timer is inactive', () => {
-//   expect(utils.isTimerActive(timer1)).toBe(false);
-// });
-
-
-// test('timer2 is active', () => {
-//   expect(utils.isTimerActive(timer1)).toBe(true);
-// });

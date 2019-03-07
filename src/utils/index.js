@@ -1,40 +1,38 @@
 import moment from 'moment';
-import store from '../reducers';
-
-/** Returns name of active timer */
-export const getActiveTimer = timers => {
-  return timers.map(t => {
-    return {
-      ...t,
-      active: isTimerActive(t)
-    };
-  }).reduce((acc, next) => {
-    if(next.active) {
-      return next;
-    } else {
-      return acc;
-    }
-  }, {});
-};
 
 export const isTimerActive = timer => (
   timer.timeBlocks.map(tb => !tb.end)
     .reduce((acc, next) => acc || next, false)
 );
 
+/** Returns name of active timer */
+export const getActiveTimer = timers => (
+  timers.map(t => (
+    {
+      ...t,
+      active: isTimerActive(t)
+    }
+  )).reduce((acc, next) => {
+    if (next.active) {
+      return next;
+    }
+    return acc;
+  }, {})
+);
+
 export const isTimerActiveForDate = (timer, date) => (
   timer.timeBlocks.map(tb => (
     !tb.end && (
-      moment().isSame(moment(date), 'day') ||
-      moment(tb.start).isSame(moment(date), 'day')
+      moment().isSame(moment(date), 'day')
+      || moment(tb.start).isSame(moment(date), 'day')
     )
-  )).reduce((acc, next) => acc||next, false)
+  )).reduce((acc, next) => acc || next, false)
 );
 
 // return true if timer is visible for a given day
 export const isTimerVisibleForDate = (timer, date) => (
   timer.visibleDates
-    .map(d =>(
+    .map(d => (
       moment(d).isSame(moment(date), 'day')))
     .reduce((acc, next) => acc || next, false)
 );
@@ -82,7 +80,6 @@ export const getTimerByName = (name, timers) => (
   timers.find(timer => timer.name === name)
 );
 
-export const isStateSame = newState => {
-  return store.getState().timers.timersState &&
-    store.getState().timers.timersState._id === newState._id
-};
+export const isObjectEmpty = obj => (
+  Object.keys(obj).length === 0
+);

@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import TimerApp from '../TimerApp';
-import { isTimerVisibleForDate, isStateSame } from '../utils';
-import { updateState, updateStateInit, unhideRunningTimersForDate } from '../actions';
+import { isTimerVisibleForDate } from '../utils';
+import { updateStateInit, unhideRunningTimersForDate } from '../actions';
 
 // show only the timers that are visible for the given day
 const mapStateToProps = state => ({
