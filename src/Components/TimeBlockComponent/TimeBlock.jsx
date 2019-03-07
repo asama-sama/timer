@@ -1,12 +1,13 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Icon, Button, Header, Modal } from 'semantic-ui-react';
+import {
+  Icon, Button, Header, Modal
+} from 'semantic-ui-react';
 import TimeBlockInput from '../TimeBlockInputComponent/TimeBlockInput';
 import TimeBlockInputRunning from '../TimeBlockInputComponent/TimeBlockInputRunning';
 import './TimeBlock.css';
 
 class TimeBlock extends Component {
-
   constructor(props) {
     super(props);
     this.state = {
@@ -18,38 +19,50 @@ class TimeBlock extends Component {
   }
 
   handleDeleteTimeblock() {
-    this.props.deleteTimeBlock();
-    this.setState({timeblockModalOpen: false});
+    const { deleteTimeBlock } = this.props;
+    deleteTimeBlock();
+    this.setState({ timeblockModalOpen: false });
   }
 
   deleteTimeBlockConfirm() {
+    const { timeblockModalOpen } = this.state;
     return (
-      <Modal 
-        basic 
-        trigger={
-          <Icon 
+      <Modal
+        basic
+        trigger={(
+          <Icon
             name='close'
             color='red'
-            onClick={() => this.setState({timeblockModalOpen: true})}
+            onClick={() => this.setState({ timeblockModalOpen: true })}
             styleName='TimeBlock-Delete'
-          />}
-        open={this.state.timeblockModalOpen}
+          />
+        )}
+        open={timeblockModalOpen}
       >
-        <Header icon='archive' 
-          content='Delete Time Block' />
+        <Header
+          icon='archive'
+          content='Delete Time Block'
+        />
         <Modal.Content>
           <p>Are you sure you want to delete this time block?</p>
         </Modal.Content>
         <Modal.Actions>
-          <Button basic color='red' inverted
-            onClick={()=> this.setState({timeblockModalOpen: false})}
+          <Button
+            basic
+            color='red'
+            inverted
+            onClick={() => this.setState({ timeblockModalOpen: false })}
           >
-            <Icon name='remove' /> No
+            <Icon name='remove' />
+            No
           </Button>
-          <Button color='green' inverted
-            onClick={()=> this.handleDeleteTimeblock()}
+          <Button
+            color='green'
+            inverted
+            onClick={() => this.handleDeleteTimeblock()}
           >
-            <Icon name='checkmark' /> Yes
+            <Icon name='checkmark' />
+            Yes
           </Button>
         </Modal.Actions>
       </Modal>
@@ -57,39 +70,35 @@ class TimeBlock extends Component {
   }
 
   render() {
-    return(
-      <div styleName='TimeBlock'
-        onMouseEnter={() => this.setState({showDelete: true})}
-        onMouseLeave={() => this.setState({showDelete: false})}
+    const {
+      id, start, end, calendarDate,
+      updateTimeBlockStart, updateTimeBlockEnd
+    } = this.props;
+    const { showDelete } = this.state;
+    return (
+      <div
+        styleName='TimeBlock'
+        onMouseEnter={() => this.setState({ showDelete: true })}
+        onMouseLeave={() => this.setState({ showDelete: false })}
       >
         <TimeBlockInput
-          id={this.props.id} 
-          input={this.props.start}
-          updateTimeBlock={newStartTime => 
-            this.props.updateTimeBlockStart(
-              this.props.id,
-              newStartTime, 
-              this.props.end)}
-          calendarDate={this.props.calendarDate}
+          id={id}
+          input={start}
+          updateTimeBlock={newStartTime => updateTimeBlockStart(id, newStartTime, end)}
+          calendarDate={calendarDate}
         />
         -
-        {this.props.end ?
-          <TimeBlockInput 
-            id={this.props.id} 
-            input={this.props.end} 
-            updateTimeBlock={newEndTime => 
-              this.props.updateTimeBlockEnd(
-                this.props.id,
-                this.props.start,
-                newEndTime
-              )}
-            calendarDate={this.props.calendarDate}
-          /> :
-          <TimeBlockInputRunning />
+        {end ? (
+          <TimeBlockInput
+            id={id}
+            input={end}
+            updateTimeBlock={newEndTime => updateTimeBlockEnd(id, start, newEndTime)}
+            calendarDate={calendarDate}
+          />
+        )
+          : <TimeBlockInputRunning />
         }
-        
-        {this.state.showDelete ?
-          this.deleteTimeBlockConfirm() : undefined }
+        {showDelete ? this.deleteTimeBlockConfirm() : undefined }
       </div>
     );
   }
@@ -101,6 +110,9 @@ TimeBlock.propTypes = {
   id: PropTypes.string.isRequired,
   updateTimeBlockStart: PropTypes.func.isRequired,
   updateTimeBlockEnd: PropTypes.func.isRequired,
-  calendarDate: PropTypes.any.isRequired
+  calendarDate: PropTypes.string.isRequired
+};
+TimeBlock.defaultProps = {
+  end: undefined
 };
 export default TimeBlock;
