@@ -12,7 +12,7 @@
     "dev": "webpack --watch --progress --mode=development",
     "predeploy": "npm run build-gh-page",
     "deploy": "gh-pages -d dist",
-    "test": "jest"
+    "test": "jest --watch"
   },
   "jest": {
     "modulePaths": [

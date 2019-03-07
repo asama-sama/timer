@@ -40,9 +40,32 @@ test('this timer is not visible on this date', () => {
     .toBe(false);
 });
 
-test('time is within timeblocks', () => (
-  false
-));
+test('time is within a sibling timeblock', () => {
+  const within = utils.timeWithinTimeBlocks(
+    'd032684c-c213-49b8-9c81-5bafc9d99e89',
+    '2019-03-05T18:09:33+11:00',
+    timerdata.items
+  );
+  expect(within).toBe(true);
+});
+
+test('time is within it\'s own timeblock', () => {
+  const within = utils.timeWithinTimeBlocks(
+    'd032684c-c213-49b8-9c81-5bafc9d99e89',
+    '2019-03-05T15:39:38+11:00',
+    timerdata.items
+  );
+  expect(within).toBe(false);
+});
+
+test('time is outside any timeblock', () => {
+  const within = utils.timeWithinTimeBlocks(
+    'd032684c-c213-49b8-9c81-5bafc9d99e89',
+    '2019-03-15T15:39:38+11:00',
+    timerdata.items
+  );
+  expect(within).toBe(false);
+});
 
 test('gets correct time format with seconds', () => {
   expect(utils.getTimeFormat(true))

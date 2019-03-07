@@ -26,13 +26,20 @@ export const hideTimer = (id, date) => ({
   date
 });
 
+export const getTimerByName = name => (
+  (dispatch, getState) => {
+    const timer = utils.getTimerByName(name, getState().timers.timersState.items);
+    return Promise.resolve(timer);
+  }
+);
+
 export const unhideTimer = (id, date) => ({
   type: 'UNHIDE_TIMER',
   id,
   date
 });
 
-export const unhideRunningTimersForDate =  date => ({
+export const unhideRunningTimersForDate = date => ({
   type: 'UNHIDE_RUNNING_TIMERS_FOR_DATE',
   date
 });

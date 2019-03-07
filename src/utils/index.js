@@ -70,7 +70,7 @@ export const timeWithinTimeBlocks = (timeBlockId, time, timers) => {
 
 export const getTimeFormat = showSeconds => {
   let format;
-  if(showSeconds) {
+  if (showSeconds) {
     format = 'HH:mm:ss';
   } else {
     format = 'HH:mm';
@@ -78,15 +78,11 @@ export const getTimeFormat = showSeconds => {
   return format;
 };
 
-export const getTimerByName = name => (
-  store.getState().timers.timersState.items
-    .find(timer => timer.name === name)
+export const getTimerByName = (name, timers) => (
+  timers.find(timer => timer.name === name)
 );
 
 export const isStateSame = newState => {
   return store.getState().timers.timersState &&
     store.getState().timers.timersState._id === newState._id
 };
-
-
-
