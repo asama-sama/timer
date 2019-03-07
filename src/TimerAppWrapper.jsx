@@ -1,28 +1,28 @@
-import React, {Component} from 'react';
+import React from 'react';
 import { Provider } from 'react-redux';
+import PropTypes from 'prop-types';
 import TimerAppContainer from './containers/TimerAppContainer';
 import store from './reducers';
-import PropTypes from 'prop-types';
 
-class TimerAppWrapper extends Component {
-
-  constructor(props) {
-    super(props);
-  }
-
-  render() {
-    return (
-      <Provider store={store}>
-        <TimerAppContainer
-          timerData={this.props.timerData}
-          onSaveState={this.props.onSaveState}
-        />
-      </Provider>
-    );
-  }
-}
+const TimerAppWrapper = props => {
+  const { timerData, onSaveState } = props;
+  return (
+    <Provider store={store}>
+      <TimerAppContainer
+        timerData={timerData}
+        onSaveState={onSaveState}
+      />
+    </Provider>
+  );
+};
 TimerAppWrapper.propTypes = {
-  timerData: PropTypes.object.isRequired,
+  timerData: PropTypes.shape({
+    items: PropTypes.array,
+  }),
   onSaveState: PropTypes.func
+};
+TimerAppWrapper.defaultProps = {
+  timerData: {},
+  onSaveState: () => {}
 };
 export default TimerAppWrapper;

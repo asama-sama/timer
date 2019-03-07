@@ -45,22 +45,22 @@ export const isTimerVisibleForDate = (timer, date) => (
  * @param  {string} time        moment().format()
  * @param  {string} timeBlockId uuid of timeblock
  */
-export const timeWithinTimeBlocks = (time, timeBlockId) => {
-  let mTime = moment(time);
-  let timer = store.getState().timers.timersState
-    .items.map(t => {
-      let timeBlock = 
-        t.timeBlocks.find(tb => tb.id===timeBlockId);
-      return timeBlock ? t : undefined;
-    })
+export const timeWithinTimeBlocks = (timeBlockId, time, timers) => {
+  const mTime = moment(time);
+  const timer = timers.map(t => (
+    t.timeBlocks.find(tb => tb.id === timeBlockId)
+      ? t : undefined
+  ))
     .reduce((acc, next) => acc || next, undefined);
 
-  !timer ? console.error(`could not find timeblock ${timeBlockId}`) : undefined;
+  if (!timer) {
+    throw new Error(`could not find timeblock ${timeBlockId}`);
+  }
 
   return timer.timeBlocks.map(tb => {
-    if(tb.id !== timeBlockId) {
-      let mStart = moment(tb.start);
-      let mEnd = moment(tb.end);
+    if (tb.id !== timeBlockId) {
+      const mStart = moment(tb.start);
+      const mEnd = moment(tb.end);
       return mTime.isAfter(mStart) && mTime.isBefore(mEnd);
     }
     return false;

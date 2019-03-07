@@ -126,7 +126,7 @@ const timer = (
 const timers = (
   state = {
     isFetching: false,
-    didInvalidate: false,
+    didInvalidate: true,
     timersState: {
       items: []
     },
@@ -162,6 +162,17 @@ const timers = (
         lastUpdated: action.receivedAt,
         timersState: action.data
       };
+    }
+    case 'UPDATE_STATE_INIT': {
+      if (state.timersState._id !== action.data._id) {
+        return {
+          ...state,
+          didInvalidate: false,
+          lastUpdated: action.receivedAt,
+          timersState: action.data
+        };
+      }
+      return state;
     }
     case 'ADD_TIMER': {
       const newTimerInput = action.name.trim();

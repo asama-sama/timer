@@ -1,3 +1,5 @@
+import * as utils from '../utils';
+
 export const addTimer = name => ({
   type: 'ADD_TIMER',
   name
@@ -51,6 +53,25 @@ export const updateTimeBlockStart = (id, time) => ({
   time
 });
 
+export const timeWithinTimeBlocksCheck = (id, time) => (
+  (dispatch, getState) => {
+    let withinTimeBlock;
+
+    try {
+      withinTimeBlock = utils
+        .timeWithinTimeBlocks(id, time,
+          getState().timers.timersState.items);
+
+      if (withinTimeBlock) {
+        return Promise.resolve(true);
+      }
+      return Promise.resolve(false);
+    } catch (e) {
+      return Promise.reject(e);
+    }
+  }
+);
+
 export const updateTimeBlockEnd = (id, time) => ({
   type: 'UPDATE_TIME_BLOCK_END',
   id,
@@ -59,6 +80,12 @@ export const updateTimeBlockEnd = (id, time) => ({
 
 export const updateState = data => ({
   type: 'UPDATE_STATE',
+  data,
+  receivedAt: new Date()
+});
+
+export const updateStateInit = data => ({
+  type: 'UPDATE_STATE_INIT',
   data,
   receivedAt: new Date()
 });

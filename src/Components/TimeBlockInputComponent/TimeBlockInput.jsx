@@ -15,107 +15,112 @@ class TimeBlockInput extends Component {
     this.resetInput = this.resetInput.bind(this);
     this.enableTimeModify = this.enableTimeModify.bind(this);
 
+    const { input } = this.props;
+
     this.state = {
-      time: this.props.input,
-      shouldUpdate: false,
+      time: input,
       showSeconds: true,
       modify: false
     };
   }
 
-  componentDidUpdate(){
-    if(this.state.shouldUpdate) {
+  onEnter(e) {
+    const { updateTimeBlock } = this.props;
+    const { time } = this.state;
+    if (e.key === 'Enter') {
       this.setState({
-        time: this.props.input,
-        shouldUpdate: false
+        modify: false
       });
+      updateTimeBlock(time);
     }
   }
 
-  resetInput() {
-    this.setState({
-      time: this.props.input,
-      modify: false
-    });
+  // timestamp format hh:mm:ss
+  onTimeInputChange(timestamp) {
+    const { time } = this.state;
+    const currTime = moment(time);
+    const mTimestamp = moment(timestamp, this.getTimeFormat());
+    currTime
+      .set('hour', mTimestamp.hour())
+      .set('minute', mTimestamp.minute())
+      .set('second', mTimestamp.second());
+    this.setState({ time: currTime.format() });
+  }
+
+  getTimeFormat() {
+    const { showSeconds, time } = this.state;
+    const { calendarDate } = this.props;
+    let format = uGetTimeFormat(showSeconds);
+
+    const mCalendarDate = moment(calendarDate);
+    const timeInput = moment(time);
+    if (!timeInput.isSame(mCalendarDate, 'day')) {
+      format += ', Do MMM';
+    }
+    return format;
   }
 
   formatTime(time) {
     return moment(time).format(this.getTimeFormat());
   }
 
-  onEnter(e) {
-    if(e.key==='Enter') {
-      this.setState({
-        shouldUpdate: true,
-        modify: false
-      });
-      this.props.updateTimeBlock(this.state.time);
-    }
+  resetInput() {
+    const { input } = this.props;
+    this.setState({
+      time: input,
+      modify: false
+    });
   }
 
   // do not allow currently running timers to be modified
   enableTimeModify() {
-    if(this.state.time) {
-      this.setState({modify: true});
+    const { time } = this.state;
+    if (time) {
+      this.setState({ modify: true });
     }
-  }
-
-  getTimeFormat() {
-    let format = uGetTimeFormat(this.state.showSeconds) ;
-
-    let calendarDate = moment(this.props.calendarDate);
-    let timeInput = moment(this.state.time);
-    if(!timeInput.isSame(calendarDate, 'day')) {
-      format += ', Do MMM';
-    }
-    return format;
-  }
-
-  // timestamp format hh:mm:ss
-  onTimeInputChange(timestamp) {
-    let currTime = moment(this.state.time);
-    let mTimestamp = moment(timestamp, this.getTimeFormat());
-    currTime
-      .set('hour', mTimestamp.hour())
-      .set('minute', mTimestamp.minute())
-      .set('second', mTimestamp.second());
-    this.setState({time: currTime.format()});
   }
 
   render() {
+    const { modify, time, showSeconds } = this.state;
     return (
       <span styleName='TimeBlockInput'>
-        {this.state.modify ?
-          <TimeField
-            value={this.formatTime(this.state.time) 
-              || moment().format(this.getTimeFormat())}
-            onChange={this.onTimeInputChange}
-            onKeyPress={this.onEnter}
-            input={<input 
-              type='text'
-              autoFocus
-              styleName='TimeBlockInput-Modify'
-              onBlur={this.resetInput}
-            />}
-            showSeconds={this.state.showSeconds}
-            ref={this.inputRef}
-          />
-          :
-          <span
-            onClick={this.enableTimeModify}
-            styleName='TimeBlockInput-Display'
-          >
-            {this.formatTime(this.state.time)}
-          </span>
+        {modify
+          ? (
+            <TimeField
+              value={this.formatTime(time)
+                || moment().format(this.getTimeFormat())}
+              onChange={this.onTimeInputChange}
+              onKeyPress={this.onEnter}
+              input={
+                (
+                  <input
+                    type='text'
+                    autoFocus
+                    styleName='TimeBlockInput-Modify'
+                    onBlur={this.resetInput}
+                  />
+                )
+              }
+              showSeconds={showSeconds}
+              ref={this.inputRef}
+            />
+          )
+          : (
+            <span
+              onClick={this.enableTimeModify}
+              styleName='TimeBlockInput-Display'
+            >
+              {this.formatTime(time)}
+            </span>
+          )
         }
       </span>
     );
   }
 }
 TimeBlockInput.propTypes = {
-  input: PropTypes.any,
-  id: PropTypes.string.isRequired,
+  input: PropTypes.string.isRequired,
   updateTimeBlock: PropTypes.func.isRequired,
-  calendarDate: PropTypes.any.isRequired
+  calendarDate: PropTypes.string.isRequired
 };
 export default TimeBlockInput;
