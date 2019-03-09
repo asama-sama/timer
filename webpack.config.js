@@ -17,17 +17,17 @@ module.exports = env => {
         {
           test: /\.css$/,
           include: [
-            path.resolve(__dirname, "src")],
+            path.resolve(__dirname, 'src')],
           use: [
             'style-loader',
-            { 
-              loader: 'css-loader', 
-              options: 
+            {
+              loader: 'css-loader',
+              options:
                 {
-                  modules: true, 
+                  modules: true,
                   importLoaders: 1,
                   localIdentName: '[path]___[name]__[local]___[hash:base64:5]'
-                } 
+                }
             },
             'postcss-loader'
           ]
@@ -35,7 +35,7 @@ module.exports = env => {
         {
           test: /\.css$/,
           include: [
-            path.resolve(__dirname, "node_modules/semantic-ui")],
+            path.resolve(__dirname, 'node_modules/semantic-ui')],
           use: [
             {
               loader: 'style-loader',

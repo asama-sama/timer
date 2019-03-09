@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<div
+  className="src-Components-DatePickerComponent-___DatePicker__DatePicker___2L_Fn"
+>
+  <i
+    aria-hidden="true"
+    className="angle left icon src-Components-DatePickerComponent-___DatePicker__DatePicker-Arrow___2hqI4 src-Components-DatePickerComponent-___DatePicker__DatePicker-Arrow-Left___3YDcC"
+    onClick={[Function]}
+  />
+  <span
+    className="src-Components-DatePickerComponent-___DatePicker__DatePicker-Text___2HjRf"
+  >
+    Invalid date
+  </span>
+  <i
+    aria-hidden="true"
+    className="angle right icon src-Components-DatePickerComponent-___DatePicker__DatePicker-Arrow___2hqI4 src-Components-DatePickerComponent-___DatePicker__DatePicker-Arrow-Right___1iewH"
+    onClick={[Function]}
+  />
+</div>
+`;

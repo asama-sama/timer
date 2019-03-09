@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import moment from 'moment';
 import { Icon } from 'semantic-ui-react';
 import './DatePicker.css';
-import moment from 'moment';
 
 const DatePicker = props => {
   const { subtractDay, date, addDay } = props;

@@ -1,8 +1,8 @@
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import DatePicker from '../Components/DatePickerComponent/DatePicker';
-import {subtractDay, addDay} from '../actions';
+import { subtractDay, addDay } from '../actions';
 
-const mapStateToProps = state => ({date: state.date});
+const mapStateToProps = state => ({ date: state.date });
 
 const mapDispatchToProps = dispatch => ({
   subtractDay: () => dispatch(subtractDay()),
@@ -10,6 +10,6 @@ const mapDispatchToProps = dispatch => ({
 });
 
 export default connect(
-  mapStateToProps, 
+  mapStateToProps,
   mapDispatchToProps
 )(DatePicker);

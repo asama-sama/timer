@@ -1,5 +1,5 @@
 import * as utils from '../src/utils';
-import timerdata from './timerdata';
+import timerdata from './timerdata.json';
 
 describe('isTimerActive', () => {
   test('this timer is active', () => {

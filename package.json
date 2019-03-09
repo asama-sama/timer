@@ -14,26 +14,6 @@
     "deploy": "gh-pages -d dist",
     "test": "jest --watch"
   },
-  "jest": {
-    "modulePaths": [
-      "/shared/vendor/modules"
-    ],
-    "moduleFileExtensions": [
-      "js",
-      "jsx"
-    ],
-    "moduleDirectories": [
-      "node_modules",
-      "bower_components",
-      "shared"
-    ],
-    "moduleNameMapper": {
-      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/__mocks__/fileMock.js",
-      "\\.(css|less)$": "identity-obj-proxy",
-      "^react(.*)$": "<rootDir>/vendor/react-master$1",
-      "^config$": "<rootDir>/configs/app-config.js"
-    }
-  },
   "dependencies": {
     "file-loader": "3.0.1",
     "gh-pages": "2.0.1",
@@ -66,9 +46,9 @@
     "eslint-plugin-import": "2.16.0",
     "eslint-plugin-jsx-a11y": "6.2.1",
     "eslint-plugin-react": "7.12.4",
-    "identity-obj-proxy": "3.0.0",
     "jest": "24.1.0",
     "postcss-loader": "3.0.0",
+    "react-test-renderer": "16.8.4",
     "style-loader": "0.23.1",
     "webpack": "4.29.5",
     "webpack-cli": "3.2.3"
